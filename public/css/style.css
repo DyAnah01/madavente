@@ -1,0 +1,31 @@
+header{
+    background-image: url("../images/head.png");
+    height: 18rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+   
+} 
+.navig{
+    background-color: brown;
+}
+.corps{
+    background-color: #5a4731a0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    height: 50rem;
+
+}
+.vide{
+    height: 16rem;
+}
+
+footer{
+    background-image: url("../images/foot.png");
+    height: 18rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+   
+} 
