@@ -3,7 +3,10 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="row justify-content-center pt-5">
+<div class="row justify-content-center pt-2">
+    <div class="d-flex justify-content-end align-items-end">
+        <p class="fs-5">Pas de compte ? <a href="{{ path('app_register') }} " class="text-white text-end">inscrivez-vous</a></p>
+    </div>
 <div class="col-md-4">
     <form method="post">
         {% if error %}
@@ -11,7 +14,7 @@
         {% endif %}
     
     
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <h1 class="h3 mb-3 font-weight-normal text-center">Veuillez vous connecter</h1>
         <label for="inputEmail">Email</label>
         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
         <label for="inputPassword">Password</label>
@@ -29,12 +32,9 @@
                 <label>
                     <input type="checkbox" name="_remember_me"> Se souvenir de moi
                 </label>
-            </div>
-            <p>Pas de compte ? <a href="{{ path('app_register') }} " class="text-white text-end">inscrivez-vous</a></p>
-        
-    
+            </div>        
         <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
+            Se connecter
         </button>
     </form>
 </div>
