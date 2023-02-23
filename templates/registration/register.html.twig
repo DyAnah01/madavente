@@ -8,38 +8,43 @@
     {% endfor %}
 
     <h1 class="text-center">Inscription</h1>
-    <div class="row flex-column justify-content-center">
-    {{ form_start(registrationForm) }}
-        <div class="col-md-4">
-            {{ form_row(registrationForm.email) }}
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="row flex-column justify-content-center">
+                    {{ form_start(registrationForm) }}
+                <div>
+                    {{ form_row(registrationForm.email) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.plainPassword, {label: 'Password' } ) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.nom) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.prenom) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.adresse) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.cp) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.tel) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.RGPDConsent) }}
+                </div>
+                <div>
+                    {{ form_end(registrationForm) }}
+                    <button type="submit" class="btn btn-success px-5">S'inscrire</button>            
+                </div>
+                
+            </div>
         </div>
-        <div class="col-md-4">
-            {{ form_row(registrationForm.plainPassword, {label: 'Password' } ) }}
-        </div>
-        <div class="col-md-4">
-            {{ form_row(registrationForm.nom) }}
-        </div>
-        <div class="col-md-4">
-            {{ form_row(registrationForm.prenom) }}
-        </div>
-        <div class="col-md-4">
-            {{ form_row(registrationForm.adresse) }}
-        </div>
-        <div class="col-md-4">
-            {{ form_row(registrationForm.cp) }}
-        </div>
-        <div class="col-md-4">
-            {{ form_row(registrationForm.tel) }}
-        </div>
-        <div class="col-md-4">
-            {{ form_row(registrationForm.agreeTerms) }}
-        </div>
-        <div class="col-md-4">
-            {{ form_end(registrationForm) }}
-            <button type="submit" class="btn btn-success px-5">S'inscrire</button>            
-        </div>
-        
     </div>
+
 
 
         

@@ -47,6 +47,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $tel = null;
 
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private $created_at;
+
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();  
+				# En d'autres termes, cette ligne est utilisée pour définir 
+				#la valeur de la propriété "created_at" sur la date et l'heure 
+				# actuelles.
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -185,6 +196,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTel(int $tel): self
     {
         $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

@@ -3,8 +3,25 @@
 {% block title %} {{ parent() }}|Accueil {% endblock %}
 
 {% block body %}
-
-<div class="example-wrapper">
+{{ dump(articles) }}
+<div class="row">
+    {% if articles %}
+    {% for item in articles %}
+<div class="card" style="width: 18rem;">
+    <img src=" {{ item.photo }} " class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.titre }}</h5>
+      <p class="card-text">{{ item.description }}</p>
+      <p class="card-text">{{ item.prix }}</p>
+      <a href="#" class="btn btn-primary">Ajouter</a>
+    </div>
+</div>    
+{% endfor %}
+{% else %}
+<p>Rien</p>
+    {% endif %}
 
 </div>
+
+
 {% endblock %}

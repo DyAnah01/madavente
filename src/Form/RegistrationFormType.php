@@ -26,13 +26,14 @@ class RegistrationFormType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add('agreeTerms', CheckboxType::class, [
+            ->add('RGPDConsent', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => "J'ai lu et accepte les conditions générales",
+                        'message' => 'You should agree to our terms.',
                     ]),
                 ],
+                'label' => "En m'inscrivant à ce site j'accepte les conditions général"
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
