@@ -72,8 +72,8 @@
     <div class="d-flex flex-column justify-content-end">
       {# {% set prixTotal = prixTotal + (item.article.prix * item.quantity) %} #}
 
-      <p class="text-white pe-5"> Nomre de produit : {{ cart|length}} </p>      
-      <p class="text-white pe-5"> prix total : {{ (total)|number_format(2, ',' , '.')}} </p>      
+      <p class="text-white text-end pe-5"> Nomre de produit : {{ cart|length}} </p>      
+      <p class="text-white text-end pe-5"> prix total : {{ (total)|number_format(2, ',' , '.')}} </p>      
     </div>
 
 
