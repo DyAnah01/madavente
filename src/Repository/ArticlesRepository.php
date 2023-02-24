@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Articles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +39,27 @@ class ArticlesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    // select all categorie
+    // public function findCategorieAll()
+    // {
+    //     return $this->createQueryBuilder('a')
+    //         ->select('c.id as idCategorie','c.nom as nomCat')
+    //         ->innerJoin('App\Entity\Categorie','c', Join::WITH, 'c.id = c.idCategorie')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
+
+    // public function findCategorieOne($value)
+    // {
+    //     return $this->createQueryBuilder('a')
+    //     ->select('c.id as idCategorie','c.nom as nomCat')
+    //     ->innerJoin('App\Entity\Categorie','c', Join::WITH, 'c.id = c.idCategorie')
+    //     ->andWhere('u.id = :val')
+    //     ->setParameter('val', $value)
+    //     ->getQuery()	
+    //     ->getResult();      
+    // }
+
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects

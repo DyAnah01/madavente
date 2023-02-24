@@ -9,13 +9,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'home')]
+    #[Route('/', name:'home')]
     public function index(ArticlesRepository $repoArticle): Response
     {
     $articles = $repoArticle->findAll();
+    // dd($articles);
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
             "articles"=>$articles,
         ]);
+    }
+    
+    #[Route('/politique_de_confidentialite', name:'rgpd')]
+    public function afficheRgpd()
+    {
+        return $this->render('home/rgpd.html.twig');
     }
 }

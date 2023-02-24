@@ -55,30 +55,65 @@ header{
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
-   
 } 
+
 .tlogo{  
     padding-top: 10rem;
 }
-/* .navig{
-
-    
-} */
+#body{
+    background-color: #5a473150;
+}
 .corps{
+    min-height: 30rem;
     background-color: #5a4731a0;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
-    height: 50rem;
-
 }
-
-
 footer{
     background-image: url("../images/foot.png");
-    height: 18rem;
+    height: 20rem;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
-   
 } 
+.descri{
+    min-height: 10rem;
+}
+.phot{
+    min-height: 10rem;
+    max-height: 20rem;
+}
+#mpc{
+    padding-top: 8rem;
+}
+#logoM{
+    width: 140px;
+    height: 140px;
+}
+
+@media only screen and (max-width: 1280px)
+{
+    #mpc{
+        padding-top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    footer{
+        height: 17rem;
+    }
+    header{
+        height: 8rem;
+    }
+    .tlogo{  
+        padding-top: 65px;
+    }
+    #logoM{
+        width: 50px;
+        height: 50px;
+    }
+
+
+}
+

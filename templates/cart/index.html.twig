@@ -1,20 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %} {{ parent() }}|MonPanier {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{# {{ dump(cart) }} #}
+  
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% if cart|length > 0 %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/DyAnah/Desktop/PROJETS SYMFONY/madavente/src/Controller/CartController.php'|file_link(0) }}">src/Controller/CartController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/DyAnah/Desktop/PROJETS SYMFONY/madavente/templates/cart/index.html.twig'|file_link(0) }}">templates/cart/index.html.twig</a></code></li>
-    </ul>
+{% set total = null %}
+
+<div class="d-flex flex-column justify-content-center">
+  <a href=" {{ path('delete_all_cart') }} " class="text-center text-decoration-none text-white">Vider le panier</a>
 </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="text-white">Votre panier</th>
+          <th class="text-white"> Prix</th>
+        </tr>
+        
+      </thead>
+      <tbody>
+        {% for item in cart %}
+        {% set total = total + (item.article.prix * item.quantity) %}
+        <tr>
+          <th scope="row">
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src=" {{ item.article.photo }} " class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.article.titre }}</h5>
+                    <p class="card-text">{{ item.article.description }}</p>
+                    <p class="card-text"> </p>
+                    <p class="card-text"> </p>
+                    <p class="card-text"><small class="text-muted">(catégorie : {{ item.article.idCategorie.nom }} )</small></p>
+                    <p>Quantité : <a href="{{ path('decrease_cart', { 'id':item.article.id}) }}" class="text-decoration-none">{# moins #}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                      </svg>                    
+                    </a>{# end moins #}{{ item.quantity}} <a href="  {{ path('post_cart', { 'id':item.article.id}) }}  ">{# plus #}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+                    </a>{# end plus #}</p>
+                    <div class="d-flex justify-content-end">
+                      <a href=" {{ path('delete_cart', { 'id':item.article.id}) }} " class="">{# supprimer #}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                      </svg>
+                      </a>{# end supprimer #}                    
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </th>
+          <td class="fs-4 text-white">
+            {# Le prix #}
+            {{ (item.article.prix * item.quantity)|number_format(2, ',' , '.') }}€
+          </td>
+        </tr>
+        {% endfor %}         
+      </tbody>
+    </table>
+    <div class="d-flex flex-column justify-content-end">
+      {# {% set prixTotal = prixTotal + (item.article.prix * item.quantity) %} #}
+
+      <p class="text-white pe-5"> Nomre de produit : {{ cart|length}} </p>      
+      <p class="text-white pe-5"> prix total : {{ (total)|number_format(2, ',' , '.')}} </p>      
+    </div>
+
+
+
+{% else %}
+<p class="text-white text-center pt-5 fs-2">Votre panier MadaVente est vide</p>
+{% endif %}
+
 {% endblock %}
+ 
