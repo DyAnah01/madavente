@@ -79,7 +79,12 @@
 
 
 {% else %}
-<p class="text-white text-center pt-5 fs-2">Votre panier MadaVente est vide</p>
+<div class="d-flex justify-content-center flex-column align-items-center">
+  <p class="text-white pt-5 fs-2">Votre panier MadaVente est vide</p>
+  <p class="text-white">Connectez-vous pour retrouver votre panier</p>
+  <a href="{{ path('app_login') }}" class="btn btn-outline-dark"> Me connecter </a>
+</div>
+
 {% endif %}
 
 {% endblock %}

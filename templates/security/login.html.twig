@@ -4,9 +4,6 @@
 
 {% block body %}
 <div class="row justify-content-center pt-2">
-    <div class="d-flex justify-content-end align-items-end">
-        <p class="fs-5">Pas de compte ? <a href="{{ path('app_register') }} " class="text-white text-end">inscrivez-vous</a></p>
-    </div>
 <div class="col-md-4">
     <form method="post">
         {% if error %}
@@ -36,6 +33,10 @@
         <button class="btn btn-lg btn-primary" type="submit">
             Se connecter
         </button>
+        <div class="d-flex justify-content-end align-items-end">
+            <p class="fs-6 mb-0 me-2">Pas de compte? </p>
+            <a href="{{ path('app_register') }} " class="text-white "> inscrivez-vous</a>
+        </div>
     </form>
 </div>
 

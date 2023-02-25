@@ -48,20 +48,22 @@
 
       </ul>
     </div>
-    {# {{ dump(app.user) }} #}
-    <div class="d-flex flex-column">
-      {% if app.user %}
-      <p class="mb-3 text-end opacity-50">
-        Vous êtes connecté en tant que {{ app.user.prenom }} </p>
-      {% if app.user.roles[0] == "ROLE_ADMIN" %}
-      <p class="fs-3 text-danger">Espace admin</p>
+      {# {{ dump(app.user) }} #}
+      <div class="d-flex flex-column">
+        <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('get_cart') }}">Mon panier</a>
+      </div>
+      <div class="d-flex flex-column">
+        {% if app.user %}
+        <p class="mb-3 text-end opacity-50">
+          Vous êtes connecté en tant que {{ app.user.prenom }} </p>
+        {% if app.user.roles[0] == "ROLE_ADMIN" %}
+        <p class="fs-3 text-danger">Espace admin</p>
+        {% endif %}
+      {% else %}
+        <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('app_login') }}">Se connecter</a>
       {% endif %}
-    {% else %}
-      <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('app_login') }}">Se connecter</a>
-    {% endif %}
-
-
     </div>
+
 
   </div>
 </nav>
