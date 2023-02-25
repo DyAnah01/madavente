@@ -80,7 +80,7 @@ footer{
 .descri{
     min-height: 10rem;
 }
-.phot{
+.phot, .pic{
     min-height: 10rem;
     max-height: 20rem;
 }
