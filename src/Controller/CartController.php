@@ -28,6 +28,14 @@ class CartController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
+    #[Route('/add/another_cart/{id}', name: 'post_cart_another')]
+    public function addAnother(CartService $cartService, Articles $articles): RedirectResponse
+    {
+        $cartService->addCart($articles->getId());
+
+        return $this->redirectToRoute('get_cart');
+    }
+
     #[Route('/delete/cart/{id}', name: 'delete_cart')]
     public function deleteCartById($id,CartService $cartService): RedirectResponse
     {
