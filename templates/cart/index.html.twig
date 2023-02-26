@@ -10,13 +10,14 @@
 
 {% set total = null %}
 
-<div class="d-flex flex-column justify-content-center">
-  <a href=" {{ path('delete_all_cart') }} " class="text-center text-decoration-none text-white">Vider le panier</a>
+<div class="d-flex flex-column justify-content-center p-5">
 </div>
+      <a href=" {{ path('delete_all_cart') }} " class="text-center text-decoration-none text-white ps-2" title="Tout supprimer">Vider le panier</a>
+
     <table class="table">
       <thead>
         <tr>
-          <th scope="col" class="text-white">Votre panier</th>
+          <th scope="col" class="text-white fs-2">Votre panier</th>
           <th class="text-white"> Prix</th>
         </tr>
         
@@ -29,7 +30,7 @@
             <div class="card mb-3" style="max-width: 540px;">
               <div class="row g-0">
                 <div class="col-md-4">
-                  <img src=" {{ item.article.photo }} " class="img-fluid rounded-start" alt="...">
+                  <img src=" {{ item.article.photo }} " class="img-fluid rounded-start scard" alt="...">
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
@@ -69,11 +70,18 @@
         {% endfor %}         
       </tbody>
     </table>
-    <div class="d-flex flex-column justify-content-end">
+    <div class="d-flex flex-column justify-content-end align-items-end p-5">
       {# {% set prixTotal = prixTotal + (item.article.prix * item.quantity) %} #}
 
-      <p class="text-white text-end pe-5"> Nomre de produit : {{ cart|length}} </p>      
-      <p class="text-white text-end pe-5"> prix total : {{ (total)|number_format(2, ',' , '.')}} </p>      
+      <p class="text-white"> Nomre de produit : {{ cart|length}} </p>      
+      <p class="text-white"> prix total : {{ (total)|number_format(2, ',' , '.')}} €</p> 
+      <a href="" class="px-3 btn btn-outline-dark">Passer la commande</a> 
+      
+      {# <div class="d-flex justify-content-end align-items-end flex-column">
+        <p class="">Prix total {{ (total)|number_format(2, ',' , '.')}} €</p>
+        <a href="" class="px-3 btn btn-outline-dark ">Passer la commande</a>
+      </div> #}
+
     </div>
 
 
@@ -82,7 +90,9 @@
 <div class="d-flex justify-content-center flex-column align-items-center">
   <p class="text-white pt-5 fs-2">Votre panier MadaVente est vide</p>
   <p class="text-white">Connectez-vous pour retrouver votre panier</p>
-  <a href="{{ path('app_login') }}" class="btn btn-outline-dark"> Me connecter </a>
+  <div class="row">
+  <a href="{{ path('app_login') }}" class="btn btn-outline-dark col-md-3"> Me connecter </a>
+  </div>
 </div>
 
 {% endif %}
