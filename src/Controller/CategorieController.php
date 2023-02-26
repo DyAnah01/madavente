@@ -34,4 +34,25 @@ class CategorieController extends AbstractController
             'formCat' => $form->createView(),
         ]);
     }
+    #[Route('admin/categorie/update/{id}', name: "update_categorie")]
+    public function cat_update($id, CategorieRepository $repoC, Request $request, EntityManagerInterface $manager)
+    {
+        $categorie = $repoC->find($id);
+        $form = $this->createForm(CategorieType::class, $categorie);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($categorie);
+            $manager->flush();
+            $this->addFlash("success", "La catégorie N°" . $categorie->getId() . " a bien été modifié");
+            return $this->redirectToRoute('app_categorie');
+        }
+
+        return $this->render('categorie/categorie.html.twig',[
+            'formCategorie' => $form,
+            'categorie' => $categorie,
+        ]);
+    }
+
+
 }
