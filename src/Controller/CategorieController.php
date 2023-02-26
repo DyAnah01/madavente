@@ -54,5 +54,17 @@ class CategorieController extends AbstractController
         ]);
     }
 
+    #[Route('admin/categorie/delete/{id}', name:'supprimer_categorie')]
+    public function agences_delete(Categorie $categorie, EntityManagerInterface $manager)
+    {
+        $idCategorie = $categorie->getId();
+        $manager->remove($categorie);
+        $manager->flush();
+
+        $this->addFlash("success", "La catégorie N° $idCategorie a été supprimé");
+        return $this->redirectToRoute("app_categorie");
+
+    }
+
 
 }
