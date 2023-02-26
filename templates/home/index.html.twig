@@ -7,18 +7,20 @@
 <div class="row p-3">
     {% if articles %}
     {% for item in articles %}
-<div class="card p-3 m-3" style="width: 18rem;">
-    <img src=" {{ item.photo }} " class="card-img-top pic" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{ item.titre }}</h5>
-      <p class="card-text">{{ item.description }}</p>
-      <p class="card-text">{{ item.prix }}€</p>
-      <a href="{{ path('post_cart', {'id' : item.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+    <div class="card p-3 m-3 prod" style="width: 18rem;">
+        <img src=" {{ item.photo }} " class="card-img-top pic" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{ item.titre }}</h5>
+            <p class="card-text">{{ item.description }}</p>
+            <p class="card-text">{{ item.prix }}€</p>
+            <a href="{{ path('post_cart', {'id' : item.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+        </div>
     </div>
-</div>    
-{% endfor %}
-{% else %}
-<p>Rien</p>
+    {% endfor %}
+
+
+    {% else %}
+    <p>Rien</p>
     {% endif %}
 
 </div>
