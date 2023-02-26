@@ -31,9 +31,9 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon Compte</a>
             <ul class="dropdown-menu">
               {% if app.user %}
-                {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                {# {% if app.user.roles[0] == "ROLE_ADMIN" %}
                 <li><a class="dropdown-item" href="#">Liste de commande</a></li>
-                {% endif %}
+                {% endif %} #}
 
                 {% if app.user.roles[0] == "ROLE_USER" %}
                 <li><a class="dropdown-item" href="#">Historique de commande</a></li>
@@ -49,9 +49,16 @@
       </ul>
     </div>
       {# {{ dump(app.user) }} #}
+      {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
+      <div class="d-flex">
+        <a class="text-decoration-none text-end text-dark fs-5 pe-5" href="">Commandes en cours</a>
+        <p class="text-end text-dark fs-5 pe-3">Historiques</p>
+      </div>
+      {% else %}
       <div class="d-flex flex-column">
         <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('get_cart') }}">Mon panier</a>
       </div>
+      {% endif %}
       <div class="d-flex flex-column">
         {% if app.user %}
         <p class="mb-3 text-end opacity-50">
