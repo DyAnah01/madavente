@@ -44,12 +44,12 @@ class CategorieController extends AbstractController
         {
             $manager->persist($categorie);
             $manager->flush();
-            $this->addFlash("success", "La catégorie N°" . $categorie->getId() . " a bien été modifié");
+
             return $this->redirectToRoute('app_categorie');
         }
 
-        return $this->render('categorie/categorie.html.twig',[
-            'formCategorie' => $form,
+        return $this->render('categorie/updateCategorie.html.twig',[
+            'formCategorie' => $form->createView(),
             'categorie' => $categorie,
         ]);
     }
