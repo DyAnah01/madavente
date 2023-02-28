@@ -34,6 +34,7 @@ class ArticlesType extends AbstractType
                 ]               
             ])
             ->add('photo', FileType::class, [
+                'mapped' => false,
                 'label' => 'Photo',
                 'required' => false,
                 'attr' => [
