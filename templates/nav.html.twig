@@ -16,7 +16,7 @@
           <ul class="dropdown-menu">
             {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
             <li><a class="dropdown-item" href=" {{path('app_categorie')}} ">Gestion de catégorie</a></li>
-            <li><a class="dropdown-item" href="#">Gestion des articles</a></li>
+            <li><a class="dropdown-item" href="{{ path('add_articles') }}">Gestion des articles</a></li>
             <li><a class="dropdown-item" href="#"></a></li>
 
             {% else %}

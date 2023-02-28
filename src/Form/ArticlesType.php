@@ -49,8 +49,15 @@ class ArticlesType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('dateCreation')
-            ->add('stock')
+            // ->add('dateCreation')
+            ->add('stock', NumberType::class,[
+                'label' => "Stock",
+                'required' =>  false,
+                'attr' => [
+                    'placeholder' => "Quantité disponible",
+                    'class' => 'form-control',
+                ]
+                ])
             ->add('shortDescription', TextType::class,[
                 'label' => "Courte description",
                 'required' => false,
@@ -62,8 +69,12 @@ class ArticlesType extends AbstractType
             ->add('idCategorie', EntityType::class, [
                 'class' => Categorie::class,
                 'placeholder' => 'Selecionner une categorie',
-                'choice_label' => 'Cateforie',
+                'choice_label' => 'nom',
+                'label' => 'Catégorie',
                 'required' => false,
+                'attr' => [
+                    'class' => "form-control",
+                ]
             ])
         ;
     }

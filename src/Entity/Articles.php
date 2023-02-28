@@ -26,8 +26,18 @@ class Articles
     #[ORM\Column]
     private ?float $prix = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateCreation = null;
+    // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    // private ?\DateTimeInterface $dateCreation = null;
+    #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
+    private $dateCreation;
+
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTimeImmutable();  
+				# En d'autres termes, cette ligne est utilisée pour définir 
+				#la valeur de la propriété "dateCreation" sur la date et l'heure 
+				# actuelles.
+    }
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Categorie $idCategorie = null;
@@ -91,12 +101,12 @@ class Articles
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateCreation(): ?\DateTimeImmutable
     {
         return $this->dateCreation;
     }
 
-    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    public function setDateCreation(\DateTimeImmutable $dateCreation): self
     {
         $this->dateCreation = $dateCreation;
 
