@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class ArticlesType extends AbstractType
 {
@@ -33,10 +34,20 @@ class ArticlesType extends AbstractType
                     'class' => "form-control",
                 ]               
             ])
-            ->add('photo', FileType::class, [
-                'mapped' => false,
+            ->add('images', FileType::class, [
                 'label' => 'Photo',
+                'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpeg',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez Importer une image valide',
+                    ])
+                ],
                 'attr' => [
                     'placeholder' => "Importer l'image de l'article",
                     'class' => "form-control",
