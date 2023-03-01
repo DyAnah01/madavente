@@ -69,4 +69,13 @@ class ArticlesController extends AbstractController
             "formArticles" => $form->createView(),
         ]);
     }
+
+    #[Route('/admin/articles/details/{id}', name:"detail_article")]
+    public function detail_articles($id, ArticlesRepository $repoArticle)
+    {
+        $art = $repoArticle->find($id);
+        return $this->render("articles/detail_articles.html.twig",[
+            "article" => $art,
+        ]);
+    }
 }

@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    
+{% endblock title %}
+
+{% block body %}
+    {% if article %}
+        {{ dump(article) }}
+
+
+        
+        {% else %}
+        <p class="fs-4">Pas de détail</p> 
+    {% endif %}
+{% endblock body %}
