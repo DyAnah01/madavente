@@ -91,9 +91,9 @@ footer{
     width: 140px;
     height: 140px;
 }
-/* .scard{
-    max-height: 100%;
-} */
+.descri{
+    width: 50%;
+}
 
 @media only screen and (max-width: 1280px)
 {
@@ -120,6 +120,10 @@ footer{
         width: 200px;
         height: 300px;
     } */
+    .scard{
+        width: 500px;
+        height: 500px;
+    }
 
 
 }

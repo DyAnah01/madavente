@@ -1,16 +1,26 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-    
+
 {% endblock title %}
 
 {% block body %}
-    {% if article %}
-        {{ dump(article) }}
+<h1 class="mt-5 text-center">{{ article.titre }}</h1>
+
+<div class=" d-flex justify-content-center ">
+    <img src="{{ asset('uploads/articles/'~article.photo ) }}" alt="image article">
+</div>
+
+<div class="mt-3 text-center d-flex flex-column justify-conten-center align-items-center">
+    <p class="fs-4 text-center descri">{{ article.description }}</p>
+    <p class="fs-5 mb-1"> <strong> prix : </strong>{{ article.prix }} € </p>
+    <p class="card-text"><small class="text-muted">Catégorie: {{ article.idCategorie.nom}}</small></p>
+
+</div>
 
 
-        
-        {% else %}
-        <p class="fs-4">Pas de détail</p> 
-    {% endif %}
+
+<div class="d-flex flex-row-reverse">
+    <a class="btn btn-outline-dark flex-end m-5" href="{{ path('add_articles') }}">Retour</a>
+</div>
 {% endblock body %}
