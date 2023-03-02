@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,15 +23,13 @@ class ArticlesType extends AbstractType
                 'label' => "Titre",
                 'required' => false,
                 'attr' => [
-                    'placeholder' => "Le titre de l'article",
                     'class' => "form-control"
                 ]
             ])
-            ->add('description', TextType::class,[
+            ->add('description', TextareaType::class,[
                 'label' => "Description",
                 'required' => false,
                 'attr' => [
-                    'placeholder' => "Décrire l'article",
                     'class' => "form-control",
                 ]               
             ])
@@ -49,7 +48,6 @@ class ArticlesType extends AbstractType
                     ])
                 ],
                 'attr' => [
-                    'placeholder' => "Importer l'image de l'article",
                     'class' => "form-control",
                 ]
             ])
@@ -57,7 +55,6 @@ class ArticlesType extends AbstractType
                 'label' => "Prix",
                 'required' =>  false,
                 'attr' => [
-                    'placeholder' => "Le prix de l'article",
                     'class' => 'form-control'
                 ]
             ])
@@ -66,15 +63,13 @@ class ArticlesType extends AbstractType
                 'label' => "Stock",
                 'required' =>  false,
                 'attr' => [
-                    'placeholder' => "Quantité disponible",
                     'class' => 'form-control',
                 ]
                 ])
-            ->add('shortDescription', TextType::class,[
+            ->add('shortDescription', TextareaType::class,[
                 'label' => "Courte description",
                 'required' => false,
                 'attr' => [
-                    'placeholder' => "Décrire brievement l'article",
                     'class' => "form-control",
                 ] 
             ])

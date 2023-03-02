@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }}|Add_And_Show_Articles{% endblock title %}
+
+{% block body %}
+<h2 class="text-center pt-3">Modifier l'article n°</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-12 d-flex justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(formArticles) }}
+                <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.titre) }}
+                </div>
+                <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.shortDescription) }}
+                </div>
+                <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.description) }}
+                </div>
+                <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.images) }}
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.prix) }}
+                </div>
+                <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.stock) }}
+                </div>
+
+                <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.idCategorie) }}
+                </div>
+                <div class="col-md-12 mx-auto">
+                    <button class="text-white btn btn-success bg-opacity-75 mil">Valider la modification</button>
+                </div>
+                {{ form_end(formArticles) }}
+            </div>
+        </div>
+    </div>
+    {% endblock body %}

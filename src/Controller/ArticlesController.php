@@ -70,7 +70,7 @@ class ArticlesController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/articles/details/{id}', name:"detail_article")]
+    #[Route('/articles/details/{id}', name:"detail_article")]
     public function detail_articles($id, ArticlesRepository $repoArticle)
     {
         $art = $repoArticle->find($id);
@@ -78,4 +78,6 @@ class ArticlesController extends AbstractController
             "article" => $art,
         ]);
     }
+    // #[Route('/admin/article/update/{id}', name:"update_article")]
+    // public function update_articles($id, )
 }

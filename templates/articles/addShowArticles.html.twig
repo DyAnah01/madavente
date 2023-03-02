@@ -4,7 +4,11 @@
 
 {% block body %}
 <h2 class="text-center pt-3">Ajouter des articles</h2>
-
+{% for notification in app.flashes('success') %}
+    <div class="alert alert-success col-md-6 mx-auto text-center disparition">
+        {{ notification }}
+    </div>
+{% endfor %}
 <div class="row justify-content-center">
     <div class="col-md-12 d-flex justify-content-center">
         <div class="row justify-content-center">
@@ -14,13 +18,13 @@
                     {{ form_row(formArticles.titre) }}
                 </div>
                 <div class="col-md-12 mx-auto">
+                    {{ form_row(formArticles.images) }}
+                </div>
+                <div class="col-md-12 mx-auto">
                     {{ form_row(formArticles.shortDescription) }}
                 </div>
                 <div class="col-md-12 mx-auto">
                     {{ form_row(formArticles.description) }}
-                </div>
-                <div class="col-md-12 mx-auto">
-                    {{ form_row(formArticles.images) }}
                 </div>
             </div>
 
@@ -36,17 +40,19 @@
                     {{ form_row(formArticles.idCategorie) }}
                 </div>
                 <div class="col-md-12 mx-auto">
-                    <button class="text-white btn btn-success bg-opacity-75 mil">Ajouter</button>
+                    <button class="text-white btn btn-success bg-opacity-75 mil px-5">Ajouter</button>
                 </div>
                 {{ form_end(formArticles) }}
             </div>
         </div>
     </div>
+    <h2 class="text-center py-4">Liste des articles</h2>
     {% if articles %}
-    <div class="col-md-12">
-        <table class="table table-bordered border border-dark text-center">
+    <div class="table-responsive">
+        <table class="table table-bordered border border-dark text-center tableau" id="responsive-table">
             <thead>
                 <tr>
+                    <th scope="col">Id</th>
                     <th scope="col">Titre</th>
                     <th scope="col">Description</th>
                     <th scope="col">Photo</th>
@@ -59,8 +65,9 @@
             <tbody>
                 {% for item in articles %}
                 <tr>
+                    <th scope="row"> {{item.id}} </th>
                     <th scope="row"> {{item.titre}} </th>
-                    <td> {{item.shortDescription}} </td>
+                    <td class="w-25"> {{item.shortDescription}} </td>
                     <td>
                         <img src="{{ asset('uploads/articles/'~item.photo ) }}" alt="image article" width="100"
                             height="100">
@@ -68,7 +75,7 @@
                     <td> {{item.prix}} €</td>
                     <td> {{item.idCategorie.nom}} </td>
                     <td> {{item.dateCreation | date('d:m:Y') }} </td>
-                    <td>
+                    <td class="w-25">
                         {# Detail #}
                         <a href="{{ path('detail_article', { 'id' : item.id } ) }}" class="text-decoration-none"
                             title="Voir le détail">

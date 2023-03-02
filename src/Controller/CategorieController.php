@@ -25,7 +25,7 @@ class CategorieController extends AbstractController
         {
             $manager->persist($cat);
             $manager->flush();
-            $this->addFlash('success', 'La catégorie n° '.$cat->getId().'a bien été ajoutée');
+            $this->addFlash('success', 'La catégorie n° '.$cat->getId().' a bien été ajoutée');
             return $this->redirectToRoute('app_categorie');
         }
 
