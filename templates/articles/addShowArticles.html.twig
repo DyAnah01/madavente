@@ -84,7 +84,7 @@
                             </svg>
                         </a>
                         {# Update #}
-                        <a href="{#{{ path('update_article', { 'id' : item.id } ) }}#}" class="text-decoration-none"
+                        <a href="{{ path('update_article', { 'id' : item.id } ) }}" class="text-decoration-none"
                             title="Modifier l'article">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
                                 class="bi bi-pencil-square mx-5" viewBox="0 0 16 16">
@@ -96,7 +96,7 @@
                         </a>
 
                         {# Delete #}
-                        <a href="{#{{ path('supprimer_article', {" id" : item.id}) }}#}" class="text-decoration-none"
+                        <a href="{#{{ path('delete_article', {'id' : item.id}) }}#}" class="text-decoration-none"
                             title="Supprimer l'article">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
                                 class="bi bi-trash3" viewBox="0 0 16 16">

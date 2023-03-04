@@ -78,6 +78,27 @@ class ArticlesController extends AbstractController
             "article" => $art,
         ]);
     }
-    // #[Route('/admin/article/update/{id}', name:"update_article")]
-    // public function update_articles($id, )
+
+    #[Route('/admin/article/update/{id}', name:"update_article")]
+    public function update_articles($id, ArticlesRepository $repoA, Request $request, EntityManagerInterface $manager )
+    {
+        $articles = $repoA->find($id);
+        $form = $this->createForm(ArticlesType::class, $articles);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $manager->persist($articles);
+            $manager->flush();
+
+        $this->addFlash("success", "L'article N°" . $articles->getId(). " a bien été mis à jour");
+        return $this->redirectToRoute("add_articles");
+        }
+        return $this->render("articles/update_articles.html.twig", [
+            "formArticles" => $form->createView(),
+            "articles" => $articles,
+            "idA" => $articles->getId(),
+        ]);
+
+    }
+
 }
