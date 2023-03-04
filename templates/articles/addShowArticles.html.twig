@@ -10,9 +10,8 @@
     </div>
 {% endfor %}
 <div class="row justify-content-center">
-    <div class="col-md-12 d-flex justify-content-center">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+    <div class="col-md-12  row d-flex justify-content-center">
+            <div class="col-md-4">
                 {{ form_start(formArticles) }}
                 <div class="col-md-12 mx-auto">
                     {{ form_row(formArticles.titre) }}
@@ -28,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="col-md-12 mx-auto">
                     {{ form_row(formArticles.prix) }}
                 </div>
@@ -44,7 +43,6 @@
                 </div>
                 {{ form_end(formArticles) }}
             </div>
-        </div>
     </div>
     <h2 class="text-center py-4">Liste des articles</h2>
     {% if articles %}

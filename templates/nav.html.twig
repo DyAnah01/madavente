@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg text-center justify-content-center navig" style="background-color: #5a473150;">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-lg text-center justify-content-center navig row" style="background-color: #5a473150;">
+  <div class="col-md-9 container-fluid">
     {# <a class="navbar-brand mx-5" href=" {{ path('home') }} ">Accueil</a> #}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,59 +18,50 @@
             <li><a class="dropdown-item" href=" {{path('app_categorie')}} ">Gestion de catégorie</a></li>
             <li><a class="dropdown-item" href="{{ path('add_articles') }}">Gestion des articles</a></li>
             <li><a class="dropdown-item" href="#"></a></li>
-
             {% else %}
             <li><a class="dropdown-item" href="#">Categorie 1</a></li>
             <li><a class="dropdown-item" href="#">Categorie 2</a></li>
             {% endif %}
-
           </ul>
         </li>
-        {% if app.user %} 
+        {% if app.user and app.user.roles[0] == "ROLE_USER" %} 
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon Compte</a>
             <ul class="dropdown-menu">
-              {% if app.user %}
-                {# {% if app.user.roles[0] == "ROLE_ADMIN" %}
-                <li><a class="dropdown-item" href="#">Liste de commande</a></li>
-                {% endif %} #}
-
-                {% if app.user.roles[0] == "ROLE_USER" %}
+                <li><a class="dropdown-item" href="#">Informations personnelles</a></li>
                 <li><a class="dropdown-item" href="#">Historique de commande</a></li>
-                {% endif %}
-
-                <li><a class="dropdown-item" href=" {{ path('app_logout') }} ">Logout</a></li>
-              {% endif %}
+                <li><a class="dropdown-item" href=" {{ path('app_logout') }} ">Se déconnecter</a></li>
             </ul>
-        </li>  
+        </li>
+        {% else %} 
         {% endif %}
         {# <li class="nav-item text-end"><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li> #}
-
+        {% if app.user and app.user.roles[0] == "ROLE_ADMIN"  %}
+        <li class="nav-item"><a class="nav-link" href="">Commandes en cours</a></li>
+        <li class="nav-item"><a class="nav-link" href="">Historiques de vente</a></li>
+        <li class="nav-item"><a class="nav-link" href="">Liste d'utilisateur</a></li>
+        {% else %}
+        <li class="nav-item"><a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a></li>
+        {% endif %}
       </ul>
     </div>
       {# {{ dump(app.user) }} #}
-      {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
-      <div class="d-flex">
-        <a class="text-decoration-none text-end text-dark fs-5 pe-5" href="">Commandes en cours</a>
-        <p class="text-end text-dark fs-5 pe-3">Historiques</p>
-      </div>
-      {% else %}
-      <div class="d-flex flex-column">
-        <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('get_cart') }}">Mon panier</a>
-      </div>
-      {% endif %}
-      <div class="d-flex flex-column">
-        {% if app.user %}
-        <p class="mb-3 text-end opacity-50">
-          Vous êtes connecté en tant que {{ app.user.prenom }} </p>
-        {% if app.user.roles[0] == "ROLE_ADMIN" %}
-        <p class="fs-3 text-danger">Espace admin</p>
-        {% endif %}
-      {% else %}
-        <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('app_login') }}">Se connecter</a>
-      {% endif %}
-    </div>
 
 
+  </div>
+  <div class="col-md-3 d-flex flex-column pe-3">
+    {% if app.user %}
+    <p class="mb-3 text-end opacity-50">
+      Vous êtes connecté en tant que {{ app.user.prenom }} </p>
+    {% if app.user.roles[0] == "ROLE_ADMIN" %}
+    <p class="fs-3 text-danger text-end">Espace admin</p>
+    <a class="text-end text-decoration-none" href=" {{ path('app_logout') }} ">Se déconnecter</a>
+    {% endif %}
+    {% if app.user.roles[0] == "ROLE_USER" %}
+    <a class="text-end text-decoration-none" href=" {{ path('app_logout') }} ">Se déconnecter</a>
+    {% endif %}
+  {% else %}
+    <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('app_login') }}">Se connecter</a>
+  {% endif %}
   </div>
 </nav>

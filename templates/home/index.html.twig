@@ -4,6 +4,11 @@
 
 {% block body %}
 {# {{ dump(articles) }} #}
+{% for notification in app.flashes('success') %}
+    <div class="alert alert-success col-md-6 mx-auto text-center disparition">
+        {{ notification }}
+    </div>
+{% endfor %}
 <div class="row p-3">
     {% if articles %}
     {% for item in articles %}
