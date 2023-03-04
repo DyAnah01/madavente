@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategorieController!{% endblock %}
+{% block title %} {{ parent() }}|Gestion catégorie{% endblock %}
 
 {% block body %}
 {% for notification in app.flashes('success') %}
