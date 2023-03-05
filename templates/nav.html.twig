@@ -39,7 +39,7 @@
         {% if app.user and app.user.roles[0] == "ROLE_ADMIN"  %}
         <li class="nav-item"><a class="nav-link" href="">Commandes en cours</a></li>
         <li class="nav-item"><a class="nav-link" href="">Historiques de vente</a></li>
-        <li class="nav-item"><a class="nav-link" href="">Liste d'utilisateur</a></li>
+        <li class="nav-item"><a class="nav-link" href=" {{ path('app_user') }} ">Liste d'utilisateur</a></li>
         {% else %}
         <li class="nav-item"><a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a></li>
         {% endif %}
