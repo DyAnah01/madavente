@@ -65,10 +65,6 @@ header{
 }
 .corps{
     min-height: 30rem;
-    background-color: #5a4731a0;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position-y: center;
 }
 footer{
     background-image: url("../images/foot.png");

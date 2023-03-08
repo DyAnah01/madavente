@@ -1,35 +1,57 @@
-{% extends "base.html.twih.twig" %}
+{% extends "base.html.twig" %}
+
 
 {% block title %} {{ parent() }}|Liste Utilisateur {% endblock title %}
 
 {% block body %}
-<div class="table-responsive{-sm|-md|-lg|-xl|-xxl}">
+{# {{ dump(user)}} #}
+{% for notification in app.flashes('success') %}
+    <div class="alert alert-success col-md-6 mx-auto text-center disparition">
+        {{ notification }}
+    </div>
+{% endfor %}
+<div class="table-responsive">
     <table class="table">
         <thead>
             <tr>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-              <th scope="col"></th>
+              <th scope="col">Id</th>
+              <th scope="col">Email</th>
+              <th scope="col">Verification</th>
+              <th scope="col">Nom</th>
+              <th scope="col">Prénom</th>
+              <th scope="col">Adresse</th>
+              <th scope="col">Cp</th>
+              <th scope="col">Tel</th>
+              <th scope="col">DateEnregistrement</th>
             </tr>
           </thead>
           <tbody>
+            {% for item in user %}
             <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+              <th scope="row"> {{ item.id }} </th>
+              <td> {{ item.email }} </td>
+              <td> {{ item.isVerified }} </td>
+              <td> {{ item.nom }} </td>
+              <td> {{ item.prenom }} </td>
+              <td> {{ item.adresse }}</td>
+              <td> {{ item.cp }} </td>
+
+              <td> +33{{ item.tel }} </td>
+              <td> {{ item.createdAt | date('d/m/Y') }} </td>
+              <td>
+                {# Delete #}
+                <a href="{{ path('delete_user', {'id' : item.id}) }}" class="text-decoration-none"
+                    title="Supprimer l'utilisateur">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
+                        class="bi bi-trash3" viewBox="0 0 16 16">
+                        <path
+                            d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
+                    </svg>
+                </a>
+              </td>
+            </tr>                
+            {% endfor %}
+
           </tbody>
         
     </table>
