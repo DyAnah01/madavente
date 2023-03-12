@@ -5,11 +5,15 @@
 {% block body %}
 {# {{ dump(articles) }} #}
 {% for notification in app.flashes('success') %}
-    <div class="alert alert-success col-md-6 mx-auto text-center disparition">
+    <div class="alert alert-success col-md-6 mx-auto text-center disparition pt-2">
         {{ notification }}
     </div>
 {% endfor %}
-        <div id="correct"></div>
+{# Notification :  ajouté au panier #}
+{# <div id="correct" class="row justify-content-center pt-4 light">
+   <p class="rounded col-md-3 text-center px-5 py-2 bg bg-light"></p>
+</div> #}
+
 <div class="row p-3">
     {% if articles %}
     {% for item in articles %}

@@ -24,7 +24,7 @@ class CartController extends AbstractController
     public function add(CartService $cartService, Articles $articles): RedirectResponse
     {
         $cartService->addCart($articles->getId());
-
+        $this->addFlash('success', 'Ajouté au panier');
         return $this->redirectToRoute('home');
     }
 
