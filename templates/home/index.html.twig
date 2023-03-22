@@ -9,6 +9,11 @@
         {{ notification }}
     </div>
 {% endfor %}
+{# Notification :  ajouté au panier #}
+{# <div id="correct" class="row justify-content-center pt-4 light">
+   <p class="rounded col-md-3 text-center px-5 py-2 bg bg-light"></p>
+</div> #}
+
 <div class="row p-3">
     {% if articles %}
     {% for item in articles %}
@@ -21,7 +26,7 @@
             <p><a href="{{ path('detail_article', { 'id' : item.id } ) }}" class="text-decoration-none">En savoir plus</a></p>
             {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
             {% else %}
-            <a href="{{ path('post_cart', {'id' : item.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+            <a href="{{ path('post_cart', {'id' : item.id}) }}" class="btn btn-primary" id="ajoutPanier">Ajouter au panier</a>
             {% endif %}
         </div>
     </div>
