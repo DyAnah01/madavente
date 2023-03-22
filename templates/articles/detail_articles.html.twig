@@ -17,7 +17,7 @@
     <p class="card-text"><small class="text-muted">Catégorie: {{ article.idCategorie.nom}}</small></p>
     {% if app.user and app.user.roles[0] == "ROLE_USER" %}
     <div class="d-flex flex-row-reverse">
-        <a class="btn btn-outline-dark flex-end m-5" href="{{ path('post_cart', {'id' : item.id}) }}">Ajouter au panier</a>
+        <a class="btn btn-outline-dark flex-end m-5" href="{{ path('post_cart', {'id' : article.id}) }}">Ajouter au panier</a>
     </div>
     {% else %}
     {% endif %}

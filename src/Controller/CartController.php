@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CartController extends AbstractController
 {
-    #[Route('/mon_panier', name: 'get_cart')]
+    #[Route('/profile/mon_panier', name: 'get_cart')]
     public function index(CartService $cartService): Response
     {
         // dd($cartService->getTotal());
@@ -20,7 +20,7 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/add/cart/{id}', name: 'post_cart')]
+    #[Route('/profile/add/cart/{id}', name: 'post_cart')]
     public function add(CartService $cartService, Articles $articles): RedirectResponse
     {
         $cartService->addCart($articles->getId());
@@ -28,7 +28,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('home');
     }
 
-    #[Route('/add/another_cart/{id}', name: 'post_cart_another')]
+    #[Route('/profile/add/another_cart/{id}', name: 'post_cart_another')]
     public function addAnother(CartService $cartService, Articles $articles): RedirectResponse
     {
         $cartService->addCart($articles->getId());
@@ -36,7 +36,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('get_cart');
     }
 
-    #[Route('/delete/cart/{id}', name: 'delete_cart')]
+    #[Route('/profile/delete/cart/{id}', name: 'delete_cart')]
     public function deleteCartById($id,CartService $cartService): RedirectResponse
     {
         $cartService->deleteCart($id);
@@ -44,7 +44,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('get_cart');
     }
 
-    #[Route('/delete/all/cart', name: 'delete_all_cart')]
+    #[Route('/profile/delete/all/cart', name: 'delete_all_cart')]
     public function delete(CartService $cartService): RedirectResponse
     {
         $cartService->deleteAllCart();
@@ -53,7 +53,7 @@ class CartController extends AbstractController
     }
     // deleteCart()
 
-    #[Route('/decrease/cart/{id}', name: 'decrease_cart')]
+    #[Route('/profile/decrease/cart/{id}', name: 'decrease_cart')]
     public function decrease($id,CartService $cartService): RedirectResponse
     {
         $cartService->decrease($id);
