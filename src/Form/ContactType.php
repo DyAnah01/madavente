@@ -2,10 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,30 +14,37 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, [
-                'label'=> "Email",
-                'required' => false,
-                "attr" => [
-                    "placeholder" => "Entrez votre email",
-                    "class" => "form-control"
-                ]
-            ])
-            ->add('message', TextareaType::class, [
-                'label'=> "Ecrire un message",
-                'required' => false,
-                "attr" => [
-                    "placeholder" => "Entrez votre message",
-                    "class" => "form-control"
-                ]
-            ])
-            ->add('created_at')
+        ->add('email', EmailType::class, [
+            'label'=> "Email",
+            'required' => false,
+            "attr" => [
+                "placeholder" => "Entrez votre email",
+                "class" => "form-control"
+            ]
+        ])
+        ->add('subject', TextType::class, [
+            'label'=> "Sujet",
+            'required' => false,
+            "attr" => [
+                "placeholder" => "Entrez votre message",
+                "class" => "form-control"
+            ]
+        ])
+        ->add('message', TextareaType::class, [
+            'label'=> "Message",
+            'required' => false,
+            "attr" => [
+                "placeholder" => "Entrez votre message",
+                "class" => "form-control"
+            ]
+        ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Contact::class,
+            // Configure your form options here
         ]);
     }
 }
