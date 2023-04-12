@@ -1,10 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ContactController!{% endblock %}
+{% block title %} {{ parent() }}|Contact {% endblock %}
 
 {% block body %}
-{# {{ form_start() }}
-<div class="col-md-12 mx-auto">
-    {{ form_row() }}
-</div> #}
+<h1 class="d-flex justify-content-center my-4">Nous Contacter</h1>
+{% for notification in app.flashes('success') %}
+    <div class="alert alert-success col-md-6 mx-auto text-center disparition">
+        {{ notification }}
+    </div> 
+{% endfor %}
+{{ form_start(form) }}
+    <div class="contactForm">
+            <div class="">{{ form_row(form.email) }}</div>
+            <div class="">{{ form_row(form.subject) }}</div>
+            <div class="">{{ form_row(form.message) }}</div>
+            <div class="">{{ form_row(form.submit) }}</div> 
+    </div>
+    {# <button type="button" class="d-flex justify-content-center align-items-center">Valider</button> #}
+
+{{ form_end(form) }}
+
 {% endblock %}
