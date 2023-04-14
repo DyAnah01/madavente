@@ -68,7 +68,7 @@ header{
 }
 footer{
     background-image: url("../images/zz.png");
-    height: 20rem;
+    height: 30rem;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
@@ -107,6 +107,15 @@ hr {
     background-color: rgba(117, 60, 27, 0.636);
 }
 
+.contactForm{
+    width: 60%;
+    margin: auto;
+}
+.imgDetail{
+    width: 500px;
+    height: 500px;
+}
+
 @media only screen and (max-width: 1280px)
 {
     #mpc{
@@ -135,6 +144,10 @@ hr {
     .scard{
         width: 500px;
         height: 500px;
+    }
+    .contactForm{
+        width: 100%;
+        margin: auto;
     }
     
 
