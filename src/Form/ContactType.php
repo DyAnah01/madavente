@@ -18,41 +18,51 @@ class ContactType extends AbstractType
         $builder
         ->add('email', EmailType::class, [
             'label'=> "Email",
-            'required' => true,
+            'required' => false,
             'constraints' => [
-                new NotBlank
+                new NotBlank([
+                    "message" => "L'email ne doit pas être vide"
+                    ]),
             ],
             "attr" => [
                 "placeholder" => "Entrez votre email",
-                "class" => "form-control"
+                "class" => "form-control",
+                "id" => "email"
             ]
         ])
         ->add('subject', TextType::class, [
             'label'=> "Sujet",
-            'required' => true,
+            'required' => false,
             'constraints' => [
-                new NotBlank
+                new NotBlank([
+                    "message" => "Le sujet ne doit pas être vide"
+                    ]),
             ],
             "attr" => [
-                "placeholder" => "Entrez votre message",
-                "class" => "form-control"
+                "placeholder" => "Entrez le sujet",
+                "class" => "form-control",
+                "id" => "subject"
             ]
         ])
         ->add('message', TextareaType::class, [
             'label'=> "Message",
-            'required' => true,
+            'required' => false,
             'constraints' => [
-                new NotBlank
+                new NotBlank([
+                    "message" => "Le message ne doit pas être vide"
+                    ]),
             ],
             "attr" => [
                 "placeholder" => "Entrez votre message",
-                "class" => "form-control"
+                "class" => "form-control",
+                "id" => "msg",
             ]
         ])
         ->add('submit', SubmitType::class, [
             'label' => 'Envoyer',
             "attr" => [
-                "class" => "btn btn-primary"
+                "class" => "btn btn-primary",
+                "id" => "valider"
             ]
         ])
         // ->add('nom', TextareaType::class, [

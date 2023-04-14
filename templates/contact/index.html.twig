@@ -11,10 +11,18 @@
 {% endfor %}
 {{ form_start(form) }}
     <div class="contactForm">
-            <div class="">{{ form_row(form.email) }}</div>
-            <div class="">{{ form_row(form.subject) }}</div>
-            <div class="">{{ form_row(form.message) }}</div>
-            <div class="">{{ form_row(form.submit) }}</div> 
+            <div>{{ form_row(form.email) }}</div>
+            <div class="error" id="error_email"></div>
+            <div class="success" id="success_email"></div>
+            <div>{{ form_row(form.subject) }}</div>
+            <div class="error" id="error_subject"></div>
+            <div class="success" id="success_subject"></div>
+            <div>{{ form_row(form.message) }}</div>
+            <div class="error" id="error_message"></div>
+            <div class="success" id="success_message"></div>
+            <div>{{ form_row(form.submit) }}</div>
+            <div class="error" id="error_valider"></div>
+            <div class="success" id="success_valider"></div>
     </div>
     {# <button type="button" class="d-flex justify-content-center align-items-center">Valider</button> #}
 
