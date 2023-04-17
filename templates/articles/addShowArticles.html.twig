@@ -57,6 +57,7 @@
                     <th scope="col">Prix</th>
                     <th scope="col">Catégorie</th>
                     <th scope="col">DateCréation</th>
+                    <th scope="col">Stock</th>
                     <th scope="col">Détail | Modifier | Supprimer</th>
                 </tr>
             </thead>
@@ -73,6 +74,7 @@
                     <td> {{item.prix}} €</td>
                     <td> {{item.idCategorie.nom}} </td>
                     <td> {{item.dateCreation | date('d:m:Y') }} </td>
+                    <td> {{item.stock}} </td>
                     <td class="w-25">
                         {# Detail #}
                         <a href="{{ path('detail_article', { 'id' : item.id } ) }}" class="text-decoration-none"
