@@ -73,13 +73,28 @@ footer{
     background-repeat: no-repeat;
     background-position-y: center;
 } 
-.descri{
+/* .descri{
     min-height: 10rem;
-}
-.phot, .pic{
+} */
+.phot{
     min-height: 10rem;
     max-height: 20rem;
 }
+.card {
+display: flex;
+flex-direction: column;
+border: 1px solid #ccc;
+padding: 20px;
+max-width: 500px;
+margin: 0 auto;
+}
+
+.card img {
+max-width: 100%;
+height: 500px;
+object-fit: cover;
+}
+  
 #mpc{
     padding-top: 8rem;
 }
@@ -87,9 +102,9 @@ footer{
     width: 140px;
     height: 140px;
 }
-.descri{
+/* .descri{
     width: 50%;
-}
+} */
 
 hr {
     background-color: rgb(0, 0, 0);

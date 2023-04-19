@@ -41,7 +41,7 @@
               <td>
                 {# Delete #}
                 <a href="{{ path('delete_user', {'id' : item.id}) }}" class="text-decoration-none"
-                    title="Supprimer l'utilisateur">
+                    title="Supprimer l'utilisateur" onclick="return confirm('Êtes-vous sûr de vouloir supprimer l\'utilisateur ?')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
                         class="bi bi-trash3" viewBox="0 0 16 16">
                         <path

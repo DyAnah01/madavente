@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Stripe;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class StripeController extends AbstractController
 {
@@ -45,24 +46,39 @@ class StripeController extends AbstractController
     }
 
     #[Route('/profile/stripe/create-charge', name: 'app_stripe_charge', methods: ['POST'])]
-    public function createCharge(Request $request)
+    public function createCharge(Request $request , SessionInterface $session, ArticlesRepository $article)
     {
+        $panier = $session->get('cart', []);
+        if(empty($panier)){
+            $this->addFlash("error", "Votre panier est vide");
+            return $this->redirectToRoute('get_cart');
+        }
+
+
+
+
+
         Stripe\Stripe::setApiKey($_ENV["STRIPE_SECRET"]);
         // Création d'un nouveau paiement
-        Stripe\Charge::create([
-            "amount" => 222 * 100, // Montant du paiement en cents
-            "currency" => "eur", // Devise
-            "source" => $request->request->get('stripeToken'), // Token de la carte bancaire
-            "description" => "Binaryboxtuts Payment Test" // Description du paiement
-        ]);
-        
-        // Ajout d'un message flash pour indiquer que le paiement a été effectué avec succès
-        $this->addFlash(
-            'success',
-            'Le paiement a bien été éffectué!'
-        );
+        $info = [
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl('commande_success'),
+            'cancel_url' => $this->generateUrl('commande_cancel'),
+        ];
+        // Stripe\Charge::create([
+        //     "amount" => 222 * 100, // Montant du paiement en cents
+        //     "currency" => "eur", // Devise
+        //     "source" => $request->request->get('stripeToken'), // Token de la carte bancaire
+        //     "description" => "Binaryboxtuts Payment Test" // Description du paiement
+        // ]);
+
+        // // Ajout d'un message flash pour indiquer que le paiement a été effectué avec succès
+        // $this->addFlash(
+        //     'success',
+        //     'Le paiement a bien été éffectué!'
+        // );
 
         // Redirection vers la page principale après le paiement
-        return $this->redirectToRoute('app_stripe', [], Response::HTTP_SEE_OTHER);
+        // return $this->redirectToRoute('app_stripe', [], Response::HTTP_SEE_OTHER);
     }
 }
