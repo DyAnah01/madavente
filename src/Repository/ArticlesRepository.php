@@ -39,6 +39,18 @@ class ArticlesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function getAllArticles(array $ids){
+        return $this
+            ->getEntityManager()
+            ->createQueryBuilder()
+            ->select('a')
+            ->from(Articles::class, 'a', 'a.id')
+            ->where('a.id in (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult();
+    }
     // select all categorie
     // public function findCategorieAll()
     // {
