@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Commande;
+
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +24,6 @@ class CommandeController extends AbstractController
         if(empty($commande)){
             throw new BadRequestHttpException;
         }
-
         $commande->setStatut("Payé");
         $manager->persist($commande);
         $manager->flush();
