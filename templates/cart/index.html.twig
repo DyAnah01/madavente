@@ -3,8 +3,6 @@
 {% block title %} {{ parent() }}|MonPanier {% endblock %}
 
 {% block body %}
-{# {{ dump(cart) }} #}
-
 
 {% if cart|length > 0 %}
 
@@ -14,7 +12,7 @@
 <div class="d-flex flex-column justify-content-center p-5">
 </div>
 <a href=" {{ path('delete_all_cart') }} " class="text-center text-decoration-none text-black ps-2"
-  title="Tout supprimer">Vider le panier</a>
+  title="Tout supprimer" onclick="return confirm('Êtes-vous sûr de vouloir vider le panier ?')">Vider le panier</a>
 
 <table class="table">
   <thead>
@@ -27,7 +25,7 @@
   <tbody>
 
     {% for item in cart %}
-    {# {{ dump(item) }} #}
+
     {% set total = total + (item.article.prix * item.quantity) %}
 
     <tr>
@@ -42,8 +40,6 @@
               <div class="card-body">
                 <h5 class="card-title">{{ item.article.titre }}</h5>
                 <p class="card-text">{{ item.article.description }}</p>
-                <p class="card-text"> </p>
-                <p class="card-text"> </p>
                 <p class="card-text"><small class="text-muted">(catégorie : {{ item.article.idCategorie.nom }} )</small>
                 </p>
                 <p>Quantité : <a href="{{ path('decrease_cart', { 'id':item.article.id}) }}"
@@ -63,7 +59,8 @@
                     </svg>
                   </a>{# end plus #}</p>
                 <div class="d-flex justify-content-end">
-                  <a href=" {{ path('delete_cart', { 'id':item.article.id}) }} " class="">{# supprimer #}
+                  <a href=" {{ path('delete_cart', { 'id':item.article.id}) }} " class=""
+                    onclick="return confirm('Êtes-vous sûr de vouloir supprimer l\'article ?')">{# supprimer #}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
                       class="bi bi-trash3-fill" viewBox="0 0 16 16">
                       <path
@@ -84,25 +81,11 @@
     {% endfor %}
   </tbody>
 </table>
-{# {% set totalPrice = (total)|number_format(2, ',' , '.') %} #}
-
 <div class="d-flex flex-column justify-content-end align-items-end p-5">
-  {# {% set prixTotal = prixTotal + (item.article.prix * item.quantity) %} #} 
   <p class=""> Nomre de produit : {{ cart|length}} </p>
   <p class=""> prix total : {{ (total)|number_format(2, ',' , '.')}} €</p>
-  {# {% for item in cart %}
-  {% set quant = quant + (item.quantity)  %}
-  {{ item.article.id }} => Quantité : {{ quant }} #}
-  {# {{ dump(item.article) }}
-  {{ dump(item.quantity) }} #}
-  {# <a href=" {{ path('app_stripe', {'infoCart': cart.article ,'priceTotal': total }) }} " class="px-3 btn btn-outline-dark">Passer la commande</a>     #}
-  {# {% endfor %} #}
-  {# quant #}
-  {# {{ dump(cart) }} #}
-    <a href=" {{ path('app_stripe') }} " class="px-3 btn btn-outline-dark">Passer la commande</a>    
+  <a href="{{ path('app_stripe',{'idUser': app.user.id}) }}" class="px-3 btn btn-outline-dark">Passer la commande</a>
 </div>
-
-
 {% else %}
 <div class="d-flex justify-content-center flex-column align-items-center">
   <p class="pt-5 fs-2">Votre panier MadaVente est vide</p>

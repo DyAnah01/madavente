@@ -2,67 +2,67 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
+use Stripe;
 use App\Repository\ArticlesRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Stripe;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StripeController extends AbstractController
 {
-    private $privateKey;
-
-    public function __construct()
+    #[Route('/paiement/{idUser}', name: 'app_stripe')]
+    public function index($idUser, SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager, UserRepository $repoUser): Response
     {
-        // Configuration de la clé API Stripe
-        if ($_ENV["APP_ENV"] === 'dev') {
-            $this->privateKey = $_ENV["STRIPE_KEY"];
-        } else {
-            $this->privateKey = $_ENV["STRIPE_SECRET"];
+        $panier = $session->get('cart', []);
+        if (empty($panier)) {
+            $this->addFlash("error", "Votre panier est vide");
+            return $this->redirectToRoute('get_cart');
         }
-    }
+        $commande = new Commande;
+        $commande->setStatut('En attente');
+        $commande->setToken(hash('sha256', random_bytes(32)));
+        $user = $repoUser->find($idUser);
+        $commande->setUser($user);
+        $manager->persist($commande);
+        $manager->flush();
 
-    // /{infoCart}/{priceTotal}
-    // $infoCart, $priceTotal, ArticlesRepository $repoArt
-    #[Route('/profile/stripe', name: 'app_stripe')]
-    public function index(): Response
-    {
-        // dd($infoCart);
-        // die;
-        // $Cart = $repoArt->find($infoCart);
-        // $priceTotal = $repoArt->find($priceTotal);
-
-        return $this->render('stripe/index.html.twig', [
-            /* 
-                Retourne le template twig "stripe/index.html.twig" 
-                et passe la clé publique de Stripe comme variable 
-            */
-            'stripe_key' => $_ENV["STRIPE_KEY"],
-            // 'infoCart' => $infoCart,
-            // 'prixTotal' => $priceTotal,
-        ]);
-    }
-
-    #[Route('/profile/stripe/create-charge', name: 'app_stripe_charge', methods: ['POST'])]
-    public function createCharge(Request $request)
-    {
-        Stripe\Stripe::setApiKey($_ENV["STRIPE_SECRET"]);
+        Stripe\Stripe::setApiKey($this->getParameter('stripeSecretKey'));
         // Création d'un nouveau paiement
-        Stripe\Charge::create([
-            "amount" => 222 * 100, // Montant du paiement en cents
-            "currency" => "eur", // Devise
-            "source" => $request->request->get('stripeToken'), // Token de la carte bancaire
-            "description" => "Binaryboxtuts Payment Test" // Description du paiement
-        ]);
-        
-        // Ajout d'un message flash pour indiquer que le paiement a été effectué avec succès
-        $this->addFlash(
-            'success',
-            'Le paiement a bien été éffectué!'
-        );
+        $info = [
+            'mode' => 'payment',
+            'success_url' => $this->generateUrl('commande_success', [
+                'token' => $commande->getToken()
+            ], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url' => $this->generateUrl('commande_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
+        ];
 
-        // Redirection vers la page principale après le paiement
-        return $this->redirectToRoute('app_stripe', [], Response::HTTP_SEE_OTHER);
+        $art = $repoArticle->getAllArticles(array_keys($panier));
+
+        foreach ($panier as $id => $quantite) {
+            $commande->addArticle($art[$id]);
+            $info['line_items'][] = [
+                'price_data' => [
+                    'currency' => 'eur',
+                    'product_data' => [
+                        'name' => $art[$id]->getTitre(),
+                        'images' => [$art[$id]->getPhoto()]
+                    ],
+                    'unit_amount' => $art[$id]->getPrix() * 100
+                ],
+                'quantity' => $quantite,
+            ];
+        }
+        $manager->persist($commande);
+        $manager->flush();
+
+        // création du checkout
+        $checkout = \Stripe\Checkout\Session::create($info);
+        // Renvoyer l'utilisateur chez stripe
+        return $this->redirect($checkout->url);
     }
 }

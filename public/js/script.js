@@ -87,3 +87,14 @@ let regex_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     
 
   });
+
+    // Récupérer l'élément div par son ID
+    var info = document.getElementById("info");
+
+    // Attacher un événement de clic à l'élément div
+    info.addEventListener("click", function() {
+      // Rediriger l'utilisateur vers l'URL souhaitée
+      window.location.href = "{{ path('detail_article', { 'id' : item.id } ) }}";
+    });
+
+

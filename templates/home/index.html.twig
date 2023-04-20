@@ -5,31 +5,33 @@
 {% block body %}
 {# {{ dump(articles) }} #}
 {% for notification in app.flashes('success') %}
-    <div class="alert alert-success col-md-6 mx-auto text-center disparition">
-        {{ notification }}
-    </div>
+<div class="alert alert-success col-md-6 mx-auto text-center disparition">
+    {{ notification }}
+</div>
 {% endfor %}
-{# Notification :  ajouté au panier #}
+{# Notification : ajouté au panier #}
 {# <div id="correct" class="row justify-content-center pt-4 light">
-   <p class="rounded col-md-3 text-center px-5 py-2 bg bg-light"></p>
+    <p class="rounded col-md-3 text-center px-5 py-2 bg bg-light"></p>
 </div> #}
 
-<div class="row p-3">
+<div class="row p-3" id="info">
     {% if articles %}
     {% for item in articles %}
-    <div class="card p-3 m-3" style="width: 18rem; height:30rem">
-        <img src="{{ asset('uploads/articles/'~item.photo ) }}" class="card-img-top pic" alt="...">
-        <div class="card-body">
+    {% set id = 'item.id' %}
+    {% set url = path('detail_article', {'id': item.id}) %}
+    <div class="card p-3 m-3 " onclick="ouvrirLien('{{ url }}')" style="width: 18rem">
+        <img src="{{ asset('uploads/articles/'~item.photo ) }}" class="card-img-top" alt="...">
+        <div class="card-body w-100">
             <h5 class="card-title">{{ item.titre }}</h5>
-            <p class="card-text" style="height:2rem">{{ item.shortDescription }}</p>
-            <p class="card-text pt-2">{{ item.prix }}€</p>
-            <p><a href="{{ path('detail_article', { 'id' : item.id } ) }}" class="text-decoration-none">En savoir plus</a></p>
-            {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
-            {% else %}
-            <a href="{{ path('post_cart', {'id' : item.id}) }}" class="btn btn-primary" id="ajoutPanier">Ajouter au panier</a>
-            {% endif %}
+            {# <p class="card-text" style="height:2rem">{{ item.shortDescription }}</p>
+            <p class="card-text pt-2">{{ item.prix }}€</p> #}
         </div>
     </div>
+    <script>
+        function ouvrirLien(url) {
+            window.location.href = url;
+        }
+    </script>
     {% endfor %}
 
 

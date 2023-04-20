@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArticlesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,7 @@ class Articles
 				# En d'autres termes, cette ligne est utilisée pour définir 
 				#la valeur de la propriété "dateCreation" sur la date et l'heure 
 				# actuelles.
+    $this->commandes = new ArrayCollection();
     }
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
@@ -47,6 +50,9 @@ class Articles
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $shortDescription = null;
+
+    #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'article')]
+    private Collection $commandes;
 
     public function getId(): ?int
     {
@@ -145,6 +151,33 @@ class Articles
     public function setShortDescription(string $shortDescription): self
     {
         $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            $commande->removeArticle($this);
+        }
 
         return $this;
     }
