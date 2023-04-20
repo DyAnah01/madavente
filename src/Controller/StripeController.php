@@ -19,7 +19,7 @@ class StripeController extends AbstractController
     public function index($idUser, SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager, UserRepository $repoUser): Response
     {
         $panier = $session->get('cart', []);
-        if (empty($panier)){
+        if (empty($panier)) {
             $this->addFlash("error", "Votre panier est vide");
             return $this->redirectToRoute('get_cart');
         }
@@ -36,7 +36,7 @@ class StripeController extends AbstractController
         $info = [
             'mode' => 'payment',
             'success_url' => $this->generateUrl('commande_success', [
-                'token'=> $commande->getToken()
+                'token' => $commande->getToken()
             ], UrlGeneratorInterface::ABSOLUTE_URL),
             'cancel_url' => $this->generateUrl('commande_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ];
