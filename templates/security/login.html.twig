@@ -30,12 +30,12 @@
                     <input type="checkbox" name="_remember_me"> Se souvenir de moi
                 </label>
             </div>        
-        <button class="btn btn-lg btn-primary" type="submit">
+        <button class="btn btn-lg btn-primary mb-3" type="submit">
             Se connecter
         </button>
-        <div class="d-flex justify-content-end align-items-end">
-            <p class="fs-6 mb-0 me-2">Pas de compte? </p>
-            <a href="{{ path('app_register') }} " class="text-white "> inscrivez-vous</a>
+        <div class="d-flex justify-content-end align-items-end flex-column mt-5">
+            <p class="fs-6 mb-0 me-2"><a href="{{ path('app_register') }} " class="text-dark text-decoration-none">S'inscrire</a></p>
+            <p><a href="{{ path('app_forgot_password_request') }}" class="text-decoration-none text-dark ">Réinitialiser le mot de passe</a></p>
         </div>
     </form>
 </div>
