@@ -24,4 +24,10 @@ class HomeController extends AbstractController
     {
         return $this->render('home/rgpd.html.twig');
     }
+
+    #[Route('/mentions_legales', name:'mentions_legales')]
+    public function afficheMentions()
+    {
+        return $this->render('home/mentionsLegales.html.twig');
+    }
 }
