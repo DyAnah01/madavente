@@ -40,14 +40,14 @@ class ArticlesRepository extends ServiceEntityRepository
         }
     }
 
-    public function getAllArticles(array $ids){
+    public function getAllArticles(array $id){
         return $this
             ->getEntityManager()
             ->createQueryBuilder()
             ->select('a')
             ->from(Articles::class, 'a', 'a.id')
-            ->where('a.id in (:ids)')
-            ->setParameter('ids', $ids)
+            ->where('a.id in (:id)')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
     }

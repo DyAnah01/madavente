@@ -95,8 +95,9 @@
   {# <a href=" {{ path('app_stripe', {'infoCart': cart.article ,'priceTotal': total }) }} " class="px-3 btn btn-outline-dark">Passer la commande</a>     #}
   {# {% endfor %} #}
   {# quant #}
-  {{ dump(cart) }}
-    <a href="{{ path('app_stripe') }}" class="px-3 btn btn-outline-dark">Passer la commande</a>    
+  {# {{ dump(cart) }}
+  {{ app.user.id }} #}
+    <a href="{{ path('app_stripe',{'idUser': app.user.id}) }}" class="px-3 btn btn-outline-dark">Passer la commande</a>    
 </div>
 
 
