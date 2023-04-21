@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Khula:700);
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -130,6 +132,35 @@ hr {
     width: 500px;
     height: 500px;
 }
+
+body {
+    background: #111;
+  }
+  .hidden {
+    opacity:0;
+  }
+  .console-container {
+   
+    font-family:Khula;
+    font-size:4em;
+    text-align:center;
+    height:200px;
+    width:600px;
+    display:block;
+    position:absolute;
+    color:white;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+  }
+  .console-underscore {
+     display:inline-block;
+    position:relative;
+    top:-0.14em;
+    left:10px;
+  }
 
 @media only screen and (max-width: 1280px)
 {

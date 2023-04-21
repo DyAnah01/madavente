@@ -15,8 +15,10 @@
 </div> #}
 
 <div class="row p-3" id="info">
+    
     {% if articles %}
     {% for item in articles %}
+    <div class='console-container'><span id='text'></span><div class='console-underscore' id='console'>&#95;</div></div>
     {% set id = 'item.id' %}
     {% set url = path('detail_article', {'id': item.id}) %}
     <div class="card p-3 m-3 " onclick="ouvrirLien('{{ url }}')" style="width: 18rem">

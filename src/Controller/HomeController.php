@@ -18,6 +18,11 @@ class HomeController extends AbstractController
             "articles"=>$articles,
         ]);
     }
+    #[Route('/A_propos', name:'info')]
+    public function info()
+    {
+        return $this->render('home/info.html.twig');
+    }
     
     #[Route('/politique_de_confidentialite', name:'rgpd')]
     public function afficheRgpd()
