@@ -1,55 +1,3 @@
-// function([string1, string2],target id,[color1,color2])    
-consoleText(['Bienvenue chez MadaVente', 'Découvrez notre séléction à petit prix', 'On attendait que vous !!!'], 'text', ['tomato', 'tomato', 'tomato']);
-
-function consoleText(words, id, colors) {
-  if (colors === undefined) colors = ['#fff'];
-  var visible = true;
-  var con = document.getElementById('console');
-  var letterCount = 1;
-  var x = 1;
-  var waiting = false;
-  var target = document.getElementById(id)
-  target.setAttribute('style', 'color:' + colors[0])
-  window.setInterval(function () {
-
-    if (letterCount === 0 && waiting === false) {
-      waiting = true;
-      target.innerHTML = words[0].substring(0, letterCount)
-      window.setTimeout(function () {
-        var usedColor = colors.shift();
-        colors.push(usedColor);
-        var usedWord = words.shift();
-        words.push(usedWord);
-        x = 1;
-        target.setAttribute('style', 'color:' + colors[0])
-        letterCount += x;
-        waiting = false;
-      }, 1000)
-    } else if (letterCount === words[0].length + 1 && waiting === false) {
-      waiting = true;
-      window.setTimeout(function () {
-        x = -1;
-        letterCount += x;
-        waiting = false;
-      }, 1000)
-    } else if (waiting === false) {
-      target.innerHTML = words[0].substring(0, letterCount)
-      letterCount += x;
-    }
-  }, 120)
-  window.setInterval(function () {
-    if (visible === true) {
-      // con.className = 'console-underscore hidden'
-      visible = false;
-
-    } else {
-      // con.className = 'console-underscore hidden'
-
-      visible = true;
-    }
-  }, 400)
-}
-
 let email = document.getElementById('email')
 let subject = document.getElementById('subject')
 let msg = document.getElementById('msg')
@@ -125,6 +73,27 @@ var info = document.getElementById("info");
 info.addEventListener("click", function () {
   // Rediriger l'utilisateur vers l'URL souhaitée
   window.location.href = "{{ path('detail_article', { 'id' : item.id } ) }}";
+});
+
+
+anime({
+  targets: '.row svg',
+  translateY: 10,
+  autoplay: true,
+  loop: true,
+  easing: 'easeInOutSine',
+  direction: 'alternate'
+});
+
+anime({
+  targets: '#zero',
+  translateX: 10,
+  autoplay: true,
+  loop: true,
+  easing: 'easeInOutSine',
+  direction: 'alternate',
+  scale: [{value: 1}, {value: 1.4}, {value: 1, delay: 250}],
+    rotateY: {value: '+=180', delay: 200},
 });
 
 
