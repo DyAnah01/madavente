@@ -3,19 +3,27 @@
 namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name:'home')]
-    public function index(ArticlesRepository $repoArticle): Response
+    public function index(ArticlesRepository $repoA, Request $request, ArticlesRepository $repoArticle, PaginatorInterface $paginator ): Response
     {
-    $articles = $repoArticle->findAll();
+    // $articles = $repoArticle->findAll();
     // dd($articles);
+    $pagination = $paginator->paginate(
+        $repoA->paginationQuery(),
+        $request->query->get('page', 1),
+        8
+    );
         return $this->render('home/index.html.twig', [
-            "articles"=>$articles,
+            // "articles"=>$articles,
+            'pagination' => $pagination,
         ]);
     }
     #[Route('/A_propos', name:'info')]

@@ -13,12 +13,12 @@
 {# <div id="correct" class="row justify-content-center pt-4 light">
     <p class="rounded col-md-3 text-center px-5 py-2 bg bg-light"></p>
 </div> #}
-    <h1 class="text-center fs-3 my-5">Bienvenue chez MadaVente, faites-vous plaisir! </h1>
+<h1 class="text-center fs-3 my-5">Bienvenue chez MadaVente, faites-vous plaisir! </h1>
 
 <div class="row p-3" id="info">
-    
-    {% if articles %}
-    {% for item in articles %}
+
+    {% if pagination %}
+    {% for item in pagination %}
     {% set id = 'item.id' %}
     {% set url = path('detail_article', {'id': item.id}) %}
     <div class="card p-3 m-3 " onclick="ouvrirLien('{{ url }}')" style="width: 18rem">
@@ -35,6 +35,21 @@
         }
     </script>
     {% endfor %}
+    <nav aria-label="...">
+        <ul class="pagination pagination-lg justify-content-center">
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">1</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">{{ pagination.params.page }}</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+        </ul>
+    </nav>
+    <div class="pagination">
+        {{ dump(pagination) }}
+        {# {{ dump(pagination.params.page) }} #}
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
 
 
     {% else %}

@@ -6,6 +6,7 @@ use App\Entity\Articles;
 use App\Form\ArticlesType;
 use App\Repository\ArticlesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,7 @@ class ArticlesController extends AbstractController
         $aarticle = new Articles;
         $form = $this->createForm(ArticlesType::class, $aarticle);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             // 
@@ -80,7 +82,7 @@ class ArticlesController extends AbstractController
     }
 
     #[Route('/admin/article/update/{id}', name:"update_article")]
-    public function update_articles($id, ArticlesRepository $repoA, Request $request, EntityManagerInterface $manager )
+    public function update_articles($id, ArticlesRepository $repoA, Request $request, EntityManagerInterface $manager)
     {
         $articles = $repoA->find($id);
         $form = $this->createForm(ArticlesType::class, $articles);
