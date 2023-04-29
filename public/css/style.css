@@ -49,12 +49,13 @@ table {
 /******************FIN RESET CSS********************/
 
 
-header{
+#header{
     background-image: url("../images/aa.png");
-    height: 20rem;
+    height: 25rem;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
+    background-attachment: fixed;
 } 
 
 .tlogo{  
@@ -63,12 +64,12 @@ header{
 #body{
     background-color: #5a473150;
 }
-.corps{
+/* .corps{
     min-height: 30rem;
-}
+} */
 footer{
     background-image: url("../images/zz.png");
-    height: 30rem;
+    height: 25rem;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
@@ -76,6 +77,10 @@ footer{
 /* .descri{
     min-height: 10rem;
 } */
+.navig{
+    background-color: #8b6a53;
+}
+
 .phot{
     min-height: 10rem;
     max-height: 20rem;
@@ -130,6 +135,16 @@ hr {
     width: 500px;
     height: 500px;
 }
+.iconres{
+    width: 40px;
+    height: 40px;
+}
+.links{
+    padding: 0px 100px;
+}
+.connecte{
+    margin-right: 2rem;
+}
 
 @media only screen and (max-width: 1280px)
 {
@@ -179,6 +194,12 @@ hr {
         height: 200px;
         object-fit: cover;
     }
+    .connecte{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
     
 
 }
@@ -190,6 +211,7 @@ hr {
   background-color:#141019;
   background: radial-gradient(at 50% -20%, #908392, #0d060e) fixed;
 }
+
 
 
 #handboy

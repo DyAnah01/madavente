@@ -19,11 +19,13 @@
 </head>
 
 <body id="body">
-    <header class=" text-center tlogo">
-        <img src="{{ asset('images/logo.png') }}" alt="logo Madavente" id="logoM">
+    <header>
+        <div class=" text-center tlogo" id="header">
+            <img src="{{ asset('images/logo.png') }}" alt="logo Madavente" id="logoM">
+        </div>
     </header>
     {% include "nav.html.twig" %}
-
+    
     <div class="container corps">
         {% block body %}{% endblock %}
     </div>

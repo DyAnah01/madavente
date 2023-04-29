@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg text-center justify-content-center navig row" style="background-color: #8b6a53">
+<nav class="navbar sticky-top navbar-expand-lg text-center justify-content-center navig row" id="navbar">
   <div class="col-md-9 container-fluid">
-    
+
     {# <a class="navbar-brand mx-5" href=" {{ path('home') }} ">Accueil</a> #}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,9 +9,9 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav px-5">
         <li class="nav-item"><a class="nav-link" href="{{ path('home') }}">Accueil</a></li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown ">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{%
-            if app.user and app.user.roles[0] == "ROLE_ADMIN" %}Gestions des articles {% else %}
+            if app.user and app.user.roles[0] == "ROLE_ADMIN" %}Gestions des articles{% else %}
             Articles{% endif %}
           </a>
           <ul class="dropdown-menu">
@@ -25,54 +25,48 @@
             {% endif %}
           </ul>
         </li>
-        {% if app.user and app.user.roles[0] == "ROLE_USER" %} 
+        {% if app.user and app.user.roles[0] == "ROLE_USER" %}
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon Compte</a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Informations personnelles</a></li>
-                <li><a class="dropdown-item" href="#">Historique de commande</a></li>
-                <li><a class="dropdown-item" href=" {{ path('app_logout') }} ">Se déconnecter</a></li>
-            </ul>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Mon
+            Compte</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Informations personnelles</a></li>
+            <li><a class="dropdown-item" href="#">Historique de commande</a></li>
+            <li><a class="dropdown-item" href=" {{ path('app_logout') }} ">Se déconnecter</a></li>
+          </ul>
         </li>
-        {% else %} 
+        {% else %}
         {% endif %}
         {# <li class="nav-item text-end"><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li> #}
-        {% if app.user and app.user.roles[0] == "ROLE_ADMIN"  %}
+        {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
         <li class="nav-item"><a class="nav-link" href="">Commandes en cours</a></li>
-        <li class="nav-item"><a class="nav-link" href="">Historiques de vente</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ path('historique_commande_admin') }}">Historiques de vente</a>
+        </li>
         <li class="nav-item"><a class="nav-link" href=" {{ path('app_user') }} ">Liste d'utilisateur</a></li>
         {% else %}
         <li class="nav-item"><a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a></li>
         {% endif %}
       </ul>
     </div>
-      {# {{ dump(app.user) }} #}
+    {# {{ dump(app.user) }} #}
 
 
   </div>
-  <div class="col-md-3 d-flex flex-column pe-3">
+  <div class="col-md-3 d-flex flex-column connecte">
     {% if app.user %}
     <p class="mb-3 text-end">
       Bonjour {{ app.user.prenom }} ! </p>
-    {% if app.user.roles[0] == "ROLE_ADMIN" %}
-    <p class="fs-3 text-danger text-end">Espace admin</p>
-    <a class="text-end text-decoration-none text-dark" href=" {{ path('app_logout') }} "  title="Se déconnecter">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+    <a class="text-end text-decoration-none text-dark" href=" {{ path('app_logout') }} " title="Se déconnecter">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-box-arrow-right"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+          d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z" />
+        <path fill-rule="evenodd"
+          d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
       </svg>
     </a>
-    {% endif %}
-    {% if app.user.roles[0] == "ROLE_USER" %}
-    <a class="text-end text-decoration-none" href=" {{ path('app_logout') }} " title="Se déconnecter">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
-        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
-      </svg>
-    </a>
-    {% endif %}
-  {% else %}
+    {% else %}
     <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('app_login') }}">Se connecter</a>
-  {% endif %}
+    {% endif %}
   </div>
 </nav>

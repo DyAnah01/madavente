@@ -4,41 +4,39 @@
 
 {% block body %}
 <div class="row justify-content-center pt-2">
-<div class="col-md-4">
-    <form method="post">
-        {% if error %}
+    <div class="col-md-4">
+        <form method="post">
+            {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-    
-    
-        <h1 class="h3 mb-3 font-weight-normal text-center">Veuillez vous connecter</h1>
-        <label for="inputEmail">Email</label>
-        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-        <label for="inputPassword">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
-    
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
-        #}
+            {% endif %}
+            <h1 class="h3 my-3 font-weight-normal text-center">CONNEXION
+
+            </h1>
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control"
+                autocomplete="email" required autofocus>
+            <label for="inputPassword">Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control"
+                autocomplete="current-password" required>
+            <p class="d-flex mt-2 justify-content-end">Mot de passe oublié ? Cliquez <a
+                    href="{{ path('app_forgot_password_request') }}" class="text-decoration-none text-blue ps-1">
+                    ici</a></p>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="checkbox mb-3 ">
                 <label>
                     <input type="checkbox" name="_remember_me"> Se souvenir de moi
                 </label>
-            </div>        
-        <button class="btn btn-lg btn-primary mb-3" type="submit">
-            Se connecter
-        </button>
-        <div class="d-flex justify-content-end align-items-end flex-column mt-5">
-            <p class="fs-6 mb-0 me-2"><a href="{{ path('app_register') }} " class="text-dark text-decoration-none">S'inscrire</a></p>
-            <p><a href="{{ path('app_forgot_password_request') }}" class="text-decoration-none text-dark ">Réinitialiser le mot de passe</a></p>
-        </div>
-    </form>
-</div>
+            </div>
+            <button class="px-3 btn btn-outline-dark" type="submit">
+                Se connecter
+            </button>
+            <div class="d-flex justify-content-end align-items-end flex-column mt-5">
+                <p class="fs-6 me-2">Pas de compte ?</p>
+                <p class="fs-6 me-2"><a href="{{ path('app_register') }} "
+                        class="px-2 btn btn-outline-dark">S'inscrire</a></p>
+            </div>
+        </form>
+    </div>
 
 </div>
 

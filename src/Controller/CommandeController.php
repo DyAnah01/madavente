@@ -38,4 +38,16 @@ class CommandeController extends AbstractController
             
         ]);
     }
+
+    #[Route('/admin/historiqueCommande', name: 'historique_commande_admin')]
+    public function historique(CommandeRepository $repoC): Response
+    {
+        $com = $repoC->findAll();
+
+        return $this->render('commande/index.html.twig', [
+            'historique' => $com,
+        ]);
+    }
+
+
 }
