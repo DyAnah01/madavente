@@ -51,7 +51,7 @@ table {
 
 #header{
     background-image: url("../images/aa.png");
-    height: 25rem;
+    height: 24rem;
     background-size: cover;
     background-repeat: no-repeat;
     background-position-y: center;
@@ -200,6 +200,14 @@ hr {
         justify-content: center;
         align-items: center;
     }
+    #header{
+        background-image: url("../images/aa.png");
+        height: 10rem;
+        /* background-size: cover; */
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-attachment: fixed;
+    } 
     
 
 }
