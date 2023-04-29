@@ -3,8 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Commande>
@@ -38,7 +38,6 @@ class CommandeRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 //    /**
 //     * @return Commande[] Returns an array of Commande objects
 //     */

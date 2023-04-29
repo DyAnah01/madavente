@@ -3,6 +3,7 @@
 {% block title %} {{ parent() }}|Add_And_Show_Articles{% endblock title %}
 
 {% block body %}
+
 <h2 class="text-center pt-3">Ajouter des articles</h2>
 {% for notification in app.flashes('success') %}
     <div class="alert alert-success col-md-6 mx-auto text-center disparition">

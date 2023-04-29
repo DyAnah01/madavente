@@ -51,6 +51,7 @@ class ArticlesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    
     // select all categorie
     // public function findCategorieAll()
     // {
@@ -72,6 +73,13 @@ class ArticlesRepository extends ServiceEntityRepository
     //     ->getResult();      
     // }
 
+   public function paginationQuery()
+   {
+       return $this->createQueryBuilder('a')
+           ->orderBy('a.id', 'ASC')
+           ->getQuery()
+       ;
+   }
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
