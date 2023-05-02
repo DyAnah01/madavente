@@ -125,4 +125,13 @@ class Commande
 
         return $this;
     }
+    public function getTotal()
+    {
+        $somme=0;
+        foreach($this->getCommandeDetails() as $value){
+            $somme += $value->getArticles()->getPrix() * $value->getQuantity();
+        }
+
+        return $somme;
+    }
 }

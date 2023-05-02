@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Repository\ArticlesRepository;
+use App\Repository\CommandeDetailsRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,6 +22,7 @@ class CommandeController extends AbstractController
     #[Route('/commande_success/{token}', name: 'commande_success')]
     public function success($token, SessionInterface $session, EntityManagerInterface $manager, CommandeRepository $repoCommande): Response
     {
+
         $session->set('cart', []);
         $commande = $repoCommande->findOneBy([
             'token' => $token
@@ -41,24 +45,15 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/admin/historiqueCommande', name: 'historique_commande_admin')]
-    public function historique(CommandeRepository $repoC, Security $security): Response
+    public function historique(CommandeDetailsRepository $repoComD, ArticlesRepository $repoArticles, CommandeRepository $repoCommande, UserRepository $repoUser): Response
     {
-        $com = $repoC->getCommandeWithArticles();
-        // $articles = $com[0]->getArticle();
-        // $user = $security->getUser()->getCommandes();
-        // $article = $user->getArticle();
-        // foreach($articles as $article){
-        //     dd($articles);
-        // }
-        // Affichage des couples clé / valeur
-        // foreach($com as $cle => $valeur) 
-        // {
-        //     echo $cle ,' : ', $valeur ,'<br/>';
-        // }
+
+        $com = $repoCommande->findAll();
+        $art = $repoComD->findAll();
 
         return $this->render('commande/index.html.twig', [
-            'historique' => $com,
-            // 'articles' => $articles,
+            'detail' => $com,
+            'art' => $art,
         ]);
     }
 }

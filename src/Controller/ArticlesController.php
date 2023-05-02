@@ -43,12 +43,12 @@ class ArticlesController extends AbstractController
                 $originalFilename = pathinfo($fichierImage->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$fichierImage->guessExtension();
+                $nom = $safeFilename.'-'.uniqid().'.'.$fichierImage->guessExtension();
                 // Move the file to the directory where brochures are stored
                 try{
                     $fichierImage->move(
                         $this->getParameter('images_directory'),
-                        $newFilename
+                        $nom
                     );
 
                 } catch(FileException $e) {
@@ -56,7 +56,7 @@ class ArticlesController extends AbstractController
                 }
                 // updates the 'brochureFilename' property to store the png file name
                 // instead of its contents  
-                $aarticle->setPhoto($newFilename);      
+                $aarticle->setPhoto($nom);      
 
             }
 

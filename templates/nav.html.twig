@@ -1,6 +1,5 @@
 <nav class="navbar sticky-top navbar-expand-lg text-center justify-content-center navig row" id="navbar">
   <div class="col-md-9 container-fluid">
-
     {# <a class="navbar-brand mx-5" href=" {{ path('home') }} ">Accueil</a> #}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,10 +38,9 @@
         {% endif %}
         {# <li class="nav-item text-end"><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li> #}
         {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
-        <li class="nav-item"><a class="nav-link" href="">Commandes en cours</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('historique_commande_admin') }}">Historiques de vente</a>
+        <li class="nav-item"><a class="nav-link" href="{{ path('historique_commande_admin') }}">Gestion de commande</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href=" {{ path('app_user') }} ">Liste d'utilisateur</a></li>
+        <li class="nav-item"><a class="nav-link" href=" {{ path('app_user') }} ">Gestion d'utilisateur</a></li>
         {% else %}
         <li class="nav-item"><a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a></li>
         {% endif %}

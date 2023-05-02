@@ -150,7 +150,7 @@ hr {
     margin-right: 2rem;
 }
 
-@media only screen and (max-width: 1280px)
+@media only screen and (min-width: 0) and (max-width: 1280px)
 {
     #mpc{
         padding-top: 0;
@@ -211,6 +211,8 @@ hr {
         background-repeat: no-repeat;
         background-position-y: center;
         background-attachment: fixed;
+        background-size: cover;
+        background-attachment: inherit;
     } 
     
 
