@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\CommandeDetails;
 use Stripe;
 use App\Repository\ArticlesRepository;
+use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class StripeController extends AbstractController
 {
-    #[Route('/paiement/{idUser}', name: 'app_stripe')]
-    public function index($idUser, SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager, UserRepository $repoUser): Response
+    #[Route('/paiement', name: 'app_stripe')]
+    public function index(SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager, UserRepository $repoUser, CommandeRepository $repoCommande): Response
     {
         $panier = $session->get('cart', []);
         if (empty($panier)) {
@@ -26,10 +28,11 @@ class StripeController extends AbstractController
         $commande = new Commande;
         $commande->setStatut('En attente');
         $commande->setToken(hash('sha256', random_bytes(32)));
-        $user = $repoUser->find($idUser);
+        $user = $this->getUser();
         $commande->setUser($user);
-        $manager->persist($commande);
-        $manager->flush();
+
+        // $manager->persist($commande);
+        // $manager->flush();
 
         Stripe\Stripe::setApiKey($this->getParameter('stripeSecretKey'));
         // Création d'un nouveau paiement
@@ -44,7 +47,12 @@ class StripeController extends AbstractController
         $art = $repoArticle->getAllArticles(array_keys($panier));
 
         foreach ($panier as $id => $quantite) {
-            $commande->addArticle($art[$id]);
+            $detail = new CommandeDetails;
+            $detail->setArticles($art[$id]);
+            $detail->setCommande($commande);
+            $detail->setQuantity($quantite);
+            $commande->addCommandeDetail($detail);
+
             $info['line_items'][] = [
                 'price_data' => [
                     'currency' => 'eur',
@@ -57,6 +65,8 @@ class StripeController extends AbstractController
                 'quantity' => $quantite,
             ];
         }
+
+        // dd($commande);
         $manager->persist($commande);
         $manager->flush();
 

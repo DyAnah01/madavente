@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Security;
 
 class CommandeController extends AbstractController
 {
@@ -23,8 +23,8 @@ class CommandeController extends AbstractController
         $commande = $repoCommande->findOneBy([
             'token' => $token
         ]);
-        
-        if(empty($commande)){
+
+        if (empty($commande)) {
             throw new BadRequestHttpException;
         }
         $commande->setStatut("Payé");
@@ -37,23 +37,28 @@ class CommandeController extends AbstractController
     #[Route('/commande_cancel', name: 'commande_cancel')]
     public function cancel(): Response
     {
-        return $this->render('payment/cancel.html.twig', [
-            
-        ]);
+        return $this->render('payment/cancel.html.twig', []);
     }
 
     #[Route('/admin/historiqueCommande', name: 'historique_commande_admin')]
-    public function historique(CommandeRepository $repoC): Response
+    public function historique(CommandeRepository $repoC, Security $security): Response
     {
-        $com = $repoC->findAll();
-        $commande = $this->security->getUser()->getCommandes();
-        $article = $commande->getArticle();
-        
+        $com = $repoC->getCommandeWithArticles();
+        // $articles = $com[0]->getArticle();
+        // $user = $security->getUser()->getCommandes();
+        // $article = $user->getArticle();
+        // foreach($articles as $article){
+        //     dd($articles);
+        // }
+        // Affichage des couples clé / valeur
+        // foreach($com as $cle => $valeur) 
+        // {
+        //     echo $cle ,' : ', $valeur ,'<br/>';
+        // }
+
         return $this->render('commande/index.html.twig', [
             'historique' => $com,
-            'articles' => $article,
+            // 'articles' => $articles,
         ]);
     }
-
-
 }

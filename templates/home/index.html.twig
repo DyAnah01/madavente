@@ -25,11 +25,6 @@
             <p class="card-text pt-2">{{ item.prix }}€</p> #}
         </div>
     </div>
-    <script>
-        function ouvrirLien(url) {
-            window.location.href = url;
-        }
-    </script>
     {% endfor %}
     <div class="pagination mt-3 d-flex pagination-lg justify-content-center">
         {{ knp_pagination_render(pagination) }}

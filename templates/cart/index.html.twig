@@ -14,10 +14,11 @@
 <a href=" {{ path('delete_all_cart') }} " class="text-center text-decoration-none text-black ps-2"
   title="Tout supprimer" onclick="return confirm('Êtes-vous sûr de vouloir vider le panier ?')">Vider le panier</a>
 
-<table class="table">
+<table class="table table-bordered border border-dark text-center tableau">
   <thead>
     <tr>
       <th scope="col" class="fs-2">Votre panier</th>
+      <th class="">Quantité</th>
       <th class="">Prix</th>
     </tr>
 
@@ -27,10 +28,9 @@
     {% for item in cart %}
 
     {% set total = total + (item.article.prix * item.quantity) %}
-
     <tr>
       <th scope="row">
-        <div class="card mb-4" style="max-width: 700px;">
+        <div class="card mb-4 cardDetail bg-opacity-25">
           <div class="row g-0">
             <div class="col-md-5">
               <img src="{{ asset('uploads/articles/'~item.article.photo ) }}" class="img-fluid rounded-start scard"
@@ -73,6 +73,7 @@
           </div>
         </div>
       </th>
+      <td>{{ item.quantity }}</td>
       <td class="fs-4">
         {# Le prix #}
         {{ (item.article.prix * item.quantity)|number_format(2, ',' , '.') }}€
@@ -84,8 +85,9 @@
 <div class="d-flex flex-column justify-content-end align-items-end p-5">
   <p class=""> Nomre de produit : {{ cart|length}} </p>
   <p class=""> prix total : {{ (total)|number_format(2, ',' , '.')}} €</p>
-  <a href="{{ path('app_stripe',{'idUser': app.user.id}) }}" class="px-3 btn btn-outline-dark">Passer la commande</a>
+  <a href="{{ path('app_stripe') }}" class="px-3 btn btn-outline-dark">Passer la commande</a>
 </div>
+{# {{ dump(cart) }} #}
 {% else %}
 <div class="d-flex justify-content-center flex-column align-items-center">
   <p class="pt-5 fs-2">Votre panier MadaVente est vide</p>
