@@ -9,15 +9,24 @@
     {{ notification }}
 </div>
 {% endfor %}
-<h1 class="text-center fs-3 my-5">Bienvenue chez MadaVente, faites-vous plaisir! </h1>
+{% if app.user %}
+<p class="bonjour">
+    Bonjour {{ app.user.prenom }} ! </p>
+{% else %}
+{% endif %}
+
+<h1 class="text-center fs-3 my-5 an">Bienvenue chez MadaVente, faites-vous plaisir! </h1>
+{# <div class="row justify-content-center">
+
+</div> #}
+
 
 <div class="row p-3" id="info">
-
     {% if pagination %}
     {% for item in pagination %}
     {% set id = 'item.id' %}
     {% set url = path('detail_article', {'id': item.id}) %}
-    <div class="card p-3 m-3 " onclick="ouvrirLien('{{ url }}')" style="width: 18rem">
+    <div class="card p-3 m-3 stylecart" onclick="ouvrirLien('{{ url }}')" style="width: 18rem">
         <img src="{{ asset('uploads/articles/'~item.photo ) }}" class="card-img-top" alt="...">
         <div class="card-body w-100">
             <h5 class="card-title">{{ item.titre }}</h5>
@@ -25,16 +34,11 @@
             <p class="card-text pt-2">{{ item.prix }}€</p> #}
         </div>
     </div>
-    <script>
-        function ouvrirLien(url) {
-            window.location.href = url;
-        }
-    </script>
     {% endfor %}
     <div class="pagination mt-3 d-flex pagination-lg justify-content-center">
         {{ knp_pagination_render(pagination) }}
     </div>
-    
+
     {% else %}
     <p>Rien</p>
     {% endif %}

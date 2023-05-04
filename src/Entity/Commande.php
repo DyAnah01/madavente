@@ -3,10 +3,10 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CommandeRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 class Commande
@@ -16,8 +16,6 @@ class Commande
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToMany(targetEntity: Articles::class, inversedBy: 'commandes')]
-    private Collection $article;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     private ?User $user = null;
@@ -28,18 +26,20 @@ class Commande
     #[ORM\Column(length: 255)]
     private ?string $token = null;
 
-    // #[ORM\Column]
-    // private ?\DateTimeImmutable $created_at = null;
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private $created_at;
 
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: CommandeDetails::class, cascade: ["persist"])]
+    private Collection $commandeDetails;
+
+
     public function __construct()
     {
-        $this->article = new ArrayCollection();
         $this->created_at = new DateTimeImmutable();
         # En d'autres termes, cette ligne est utilisée pour définir 
         #la valeur de la propriété "created_at" sur la date et l'heure 
         # actuelles.
+        $this->commandeDetails = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -47,29 +47,6 @@ class Commande
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, Articles>
-     */
-    public function getArticle(): Collection
-    {
-        return $this->article;
-    }
-
-    public function addArticle(Articles $article): self
-    {
-        if (!$this->article->contains($article)) {
-            $this->article->add($article);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Articles $article): self
-    {
-        $this->article->removeElement($article);
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -117,5 +94,44 @@ class Commande
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, CommandeDetails>
+     */
+    public function getCommandeDetails(): Collection
+    {
+        return $this->commandeDetails;
+    }
+
+    public function addCommandeDetail(CommandeDetails $commandeDetail): self
+    {
+        if (!$this->commandeDetails->contains($commandeDetail)) {
+            $this->commandeDetails->add($commandeDetail);
+            $commandeDetail->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandeDetail(CommandeDetails $commandeDetail): self
+    {
+        if ($this->commandeDetails->removeElement($commandeDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($commandeDetail->getCommande() === $this) {
+                $commandeDetail->setCommande(null);
+            }
+        }
+
+        return $this;
+    }
+    public function getTotal()
+    {
+        $somme=0;
+        foreach($this->getCommandeDetails() as $value){
+            $somme += $value->getArticles()->getPrix() * $value->getQuantity();
+        }
+
+        return $somme;
     }
 }

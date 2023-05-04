@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ parent() }}|Add_Articles{% endblock title %}
+
+{% block body %}
+
+{% for notification in app.flashes('success') %}
+<div class="alert alert-success col-md-6 mx-auto text-center disparition">
+    {{ notification }}
+</div>
+{% endfor %}
+<h1 class="text-center fs-3 py-4">Gestion des articles</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        {{ form_start(formArticles) }}
+        <div class="col-md-12 mx-auto">
+            {{ form_row(formArticles.titre) }}
+        </div>
+        <div class="col-md-12 mx-auto">
+            {{ form_row(formArticles.images) }}
+        </div>
+        <div class="col-md-12 mx-auto">
+            {{ form_row(formArticles.shortDescription) }}
+        </div>
+        <div class="col-md-12 mx-auto">
+            {{ form_row(formArticles.description) }}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="col-md-12 mx-auto">
+            {{ form_row(formArticles.prix) }}
+        </div>
+        <div class="col-md-12 mx-auto">
+            {{ form_row(formArticles.stock) }}
+        </div>
+
+        <div class="col-md-12 mx-auto">
+            {{ form_row(formArticles.idCategorie) }}
+        </div>
+        <div class="col-md-12 mx-auto">
+            <button class="text-white btn btn-success bg-opacity-75 mil px-5">Ajouter</button>
+        </div>
+        {{ form_end(formArticles) }}
+    </div>
+</div>
+{% endblock body %}

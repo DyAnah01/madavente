@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(ArticlesRepository $repoA, Request $request, ArticlesRepository $repoArticle, PaginatorInterface $paginator): Response
+    public function index(ArticlesRepository $repoA, Request $request, PaginatorInterface $paginator): Response
     {
         // $articles = $repoArticle->findAll();
         // dd($articles);

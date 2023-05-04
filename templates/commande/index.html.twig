@@ -3,43 +3,78 @@
 {% block title %}Hello CommandeController!{% endblock %}
 
 {% block body %}
-    {{ dump(historique) }}
-    {# {{ dump(historique.0) }} #}
-    {# {% for historique in historique %}
-        {{ historique.statut }}
-    {% endfor %} #}
-    {{ dump(articles) }}
+{{ dump(detail) }}
+{{ dump(art) }}
 
-    {% if historique %}
-    <div class="table-responsive">
-        <table class="table table-bordered border border-dark text-center tableau" id="responsive-table">
-            <thead>
-                <tr>
-                    <th scope="col">Numéro de commande</th>
-                    <th scope="col">IdUser</th>
-                    <th scope="col">IdArticle</th>
-                    <th scope="col">statut</th>
-                    <th scope="col">DateCréation</th> 
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in historique %}
-                <tr>
-                    <th scope="row"> {{item.id}} </th>
-                    <th> {{item.user.id}} <br> {{item.user.email}}  </th>
-                    <td> article {# {{item.article}} #} </td>
-                    <td> {{item.statut}} </td>
-                    <td> {{item.createdAt | date('d:m:Y') }} </td> 
-                </tr>
-                {% endfor %}
 
-            </tbody>
-        </table>
+<h1 class="text-center fs-3 my-5"> Gestion de commande</h1>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <h2 class="fs-4">Liste de commande</h2>
+        {% if detail %}
+        <div class="table-responsive">
+            <table class="table table-bordered border border-dark text-center tableau" id="responsive-table">
+                <thead>
+                    <tr>
+                        <th class="bg-dark text-white" scope="col">N° Commande</th>
+                        <th class="bg-dark text-white" scope="col">N° Utilisateur</th>
+                        <th class="bg-dark text-white" scope="col">Nom Utilisateur</th>
+                        <th class="bg-dark text-white" scope="col">Date Enregistrement</th>
+                        <th class="bg-dark text-white" scope="col">Statut</th>
+                        <th class="bg-dark text-white" scope="col">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detail %}
+                    <tr>
+                        <th scope="row">{{item.id}} </th>
+                        <td> {{item.user.id}} </td>
+                        <td> {{item.user.nom}} </td>
+                        <th> {{item.createdAt | date('d:m:Y H:i:s') }} </th>
+                        <td> {{item.statut}} </td>
+                        <td> {{item.total}} €</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
     </div>
     {% else %}
     <p>Aucune commande</p>
     {% endif %}
 
+    <div class="col-md-4">
+        <h2 class="fs-4">Détail de commande</h2>
+        {% if art %}
+        <div class="table-responsive">
+            <table class="table table-bordered border border-dark text-center tableau" id="responsive-table">
+                <thead>
+                    <tr>
+                        <th class="bg-dark text-white" scope="col">N° de Commande</th>
+                        <th class="bg-dark text-white" scope="col">N° de l'article <br> <a href="{{ path('show_articles') }}">+ infos</a> </th>
+                        {# <th class="bg-dark text-white" scope="col">Article</th> #}
+                        <th class="bg-dark text-white" scope="col">Quantité</th>
 
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in art %}
+                    <tr>
+                        <th scope="row">{{item.commande.id}} </th>
+                        <td> {{item.articles.id}} </td>
+                        {# <td><img src="{{ asset('uploads/articles/'~item.articles.photo ) }}" class="card-img-top" alt="..."></td>  #}
+                        <td> {{item.quantity}} </td>
+                    </tr>
+                    {% endfor %}
 
-{% endblock %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>Aucune commande</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock body %}

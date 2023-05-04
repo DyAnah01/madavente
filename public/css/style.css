@@ -61,6 +61,10 @@ table {
 .tlogo{  
     padding-top: 10rem;
 }
+
+.cardDetail{
+    max-width: 700px;
+}
 #body{
     background-color: #5a473150;
 }
@@ -77,6 +81,18 @@ footer{
 /* .descri{
     min-height: 10rem;
 } */
+.bonjour{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    margin-top: 15px;
+}
+.an{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
 .navig{
     background-color: #8b6a53;
 }
@@ -145,8 +161,44 @@ hr {
 .connecte{
     margin-right: 2rem;
 }
+.stylecart{
+    cursor: pointer;
+}
+.stylecart:hover{
+    background: rgb(255, 236, 217);
+    box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.815);
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+.bodyAn{
+    margin: 50px 0;
+}
+.an {
+    position: relative;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 2em;
+    letter-spacing: 4px;
+    overflow: hidden;
+    background: linear-gradient(90deg, #000, #fff, #000);
+    background-repeat: no-repeat;
+    background-size: 80%;
+    animation: animate 3s linear infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0);
+  }
+  
+  @keyframes animate {
+    0% {
+      background-position: -500%;
+    }
+    100% {
+      background-position: 500%;
+    }
+  }
 
-@media only screen and (max-width: 1280px)
+@media only screen and (min-width: 0) and (max-width: 1280px)
 {
     #mpc{
         padding-top: 0;
@@ -207,61 +259,9 @@ hr {
         background-repeat: no-repeat;
         background-position-y: center;
         background-attachment: fixed;
+        background-size: cover;
+        background-attachment: inherit;
     } 
     
 
-}
-
-/* ************** */
-
-#body404
-{
-  background-color:#141019;
-  background: radial-gradient(at 50% -20%, #908392, #0d060e) fixed;
-}
-
-
-
-#handboy
-{
-   animation: swing ease-in-out 1.3s infinite alternate;
-    transform-origin: 98% 98%;
-    transform-box: fill-box;
-    
-}
-
-
-#girllight
-{
-   animation: swing ease-in-out 1.3s infinite alternate;
-    transform-origin: 0% 97%;
-    transform-box: fill-box;
-}
-
-#hairgirl
-{
-    animation: swinghair ease-in-out 1.3s infinite alternate;
-   transform-origin: 60% 0%;
-    transform-box: fill-box;
-  
-}
-
-#zero
-{
-  transform-origin:bottom;
-  transform-box:fill-box;
-  
-}
-
-/*************swing************/
-@keyframes swing {
-    0% { transform: rotate(10deg); }
-    100% { transform: rotate(-10deg); }
-}
-
-
-/*************swing hair************/
-@keyframes swinghair {
-    0% { transform: rotate(6deg); }
-    100% { transform: rotate(-6deg); }
 }

@@ -28,18 +28,16 @@ class Articles
     #[ORM\Column]
     private ?float $prix = null;
 
-    // #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    // private ?\DateTimeInterface $dateCreation = null;
     #[ORM\Column(type: 'datetime_immutable', options: ['default' => 'CURRENT_TIMESTAMP'])]
     private $dateCreation;
 
     public function __construct()
     {
-        $this->dateCreation = new \DateTimeImmutable();  
-				# En d'autres termes, cette ligne est utilisée pour définir 
-				#la valeur de la propriété "dateCreation" sur la date et l'heure 
-				# actuelles.
-    $this->commandes = new ArrayCollection();
+        $this->dateCreation = new \DateTimeImmutable();
+        # En d'autres termes, cette ligne est utilisée pour définir 
+        #la valeur de la propriété "dateCreation" sur la date et l'heure 
+        # actuelles.
+        $this->commandeDetails = new ArrayCollection();
     }
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
@@ -51,8 +49,13 @@ class Articles
     #[ORM\Column(type: Types::TEXT)]
     private ?string $shortDescription = null;
 
-    #[ORM\ManyToMany(targetEntity: Commande::class, mappedBy: 'article')]
-    private Collection $commandes;
+    #[ORM\OneToMany(mappedBy: 'articles', targetEntity: CommandeDetails::class)]
+    private Collection $commandeDetails;
+
+
+    // #[ORM\ManyToOne(inversedBy: 'article')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?Commande $commande = null;
 
     public function getId(): ?int
     {
@@ -156,27 +159,30 @@ class Articles
     }
 
     /**
-     * @return Collection<int, Commande>
+     * @return Collection<int, CommandeDetails>
      */
-    public function getCommandes(): Collection
+    public function getCommandeDetails(): Collection
     {
-        return $this->commandes;
+        return $this->commandeDetails;
     }
 
-    public function addCommande(Commande $commande): self
+    public function addCommandeDetail(CommandeDetails $commandeDetail): self
     {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes->add($commande);
-            $commande->addArticle($this);
+        if (!$this->commandeDetails->contains($commandeDetail)) {
+            $this->commandeDetails->add($commandeDetail);
+            $commandeDetail->setArticles($this);
         }
 
         return $this;
     }
 
-    public function removeCommande(Commande $commande): self
+    public function removeCommandeDetail(CommandeDetails $commandeDetail): self
     {
-        if ($this->commandes->removeElement($commande)) {
-            $commande->removeArticle($this);
+        if ($this->commandeDetails->removeElement($commandeDetail)) {
+            // set the owning side to null (unless already changed)
+            if ($commandeDetail->getArticles() === $this) {
+                $commandeDetail->setArticles(null);
+            }
         }
 
         return $this;

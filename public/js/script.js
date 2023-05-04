@@ -96,5 +96,7 @@ anime({
     rotateY: {value: '+=180', delay: 200},
 });
 
-
+function ouvrirLien(url) {
+  window.location.href = url;
+}
 

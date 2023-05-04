@@ -1,6 +1,5 @@
 <nav class="navbar sticky-top navbar-expand-lg text-center justify-content-center navig row" id="navbar">
   <div class="col-md-9 container-fluid">
-
     {# <a class="navbar-brand mx-5" href=" {{ path('home') }} ">Accueil</a> #}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,8 +16,8 @@
           <ul class="dropdown-menu">
             {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
             <li><a class="dropdown-item" href=" {{ path('app_categorie') }} ">Gestion de catégorie</a></li>
-            <li><a class="dropdown-item" href="{{ path('add_articles') }}">Gestion des articles</a></li>
-            <li><a class="dropdown-item" href="#"></a></li>
+            <li><a class="dropdown-item" href="{{ path('add_articles') }}">Ajout d'article</a></li>
+            <li><a class="dropdown-item" href="{{ path('show_articles') }}">Gestion des articles</a></li>
             {% else %}
             <li><a class="dropdown-item" href="#">Categorie 1</a></li>
             <li><a class="dropdown-item" href="#">Categorie 2</a></li>
@@ -39,10 +38,9 @@
         {% endif %}
         {# <li class="nav-item text-end"><a class="nav-link" href="{{ path('app_login') }}">Se connecter</a></li> #}
         {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
-        <li class="nav-item"><a class="nav-link" href="">Commandes en cours</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ path('historique_commande_admin') }}">Historiques de vente</a>
+        <li class="nav-item"><a class="nav-link" href="{{ path('historique_commande_admin') }}">Gestion de commande</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href=" {{ path('app_user') }} ">Liste d'utilisateur</a></li>
+        <li class="nav-item"><a class="nav-link" href=" {{ path('app_user') }} ">Gestion d'utilisateur</a></li>
         {% else %}
         <li class="nav-item"><a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a></li>
         {% endif %}
@@ -54,8 +52,6 @@
   </div>
   <div class="col-md-3 d-flex flex-column connecte">
     {% if app.user %}
-    <p class="mb-3 text-end">
-      Bonjour {{ app.user.prenom }} ! </p>
     <a class="text-end text-decoration-none text-dark" href=" {{ path('app_logout') }} " title="Se déconnecter">
       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-box-arrow-right"
         viewBox="0 0 16 16">
@@ -69,4 +65,5 @@
     <a class="text-decoration-none text-end pe-5 text-dark fs-4" href="{{ path('app_login') }}">Se connecter</a>
     {% endif %}
   </div>
+
 </nav>

@@ -28,7 +28,7 @@ class ArticlesController extends AbstractController
     #[Route('/admin/add/articles', name: 'add_articles')]
     public function addArticles(ArticlesRepository $repoA, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
     {
-        $articles = $repoA->findAll();
+        // $articles = $repoA->findAll();
         $aarticle = new Articles;
         $form = $this->createForm(ArticlesType::class, $aarticle);
         $form->handleRequest($request);
@@ -43,12 +43,12 @@ class ArticlesController extends AbstractController
                 $originalFilename = pathinfo($fichierImage->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$fichierImage->guessExtension();
+                $nom = $safeFilename.'-'.uniqid().'.'.$fichierImage->guessExtension();
                 // Move the file to the directory where brochures are stored
                 try{
                     $fichierImage->move(
                         $this->getParameter('images_directory'),
-                        $newFilename
+                        $nom
                     );
 
                 } catch(FileException $e) {
@@ -56,7 +56,7 @@ class ArticlesController extends AbstractController
                 }
                 // updates the 'brochureFilename' property to store the png file name
                 // instead of its contents  
-                $aarticle->setPhoto($newFilename);      
+                $aarticle->setPhoto($nom);      
 
             }
 
@@ -66,9 +66,18 @@ class ArticlesController extends AbstractController
             $this->addFlash('success', "L'article N° " . $aarticle->getId() . " a bien été ajouté");
             return $this->redirectToRoute('add_articles');
         }
-        return $this->render('articles/addShowArticles.html.twig', [
-            "articles" => $articles,
+        return $this->render('articles/addArticles.html.twig', [
+            // "articles" => $articles,
             "formArticles" => $form->createView(),
+        ]);
+    }
+
+    #[Route('/admin/show/articles', name:"show_articles")]
+    public function justShow_articles(ArticlesRepository $repoArticle)
+    {
+        $a = $repoArticle->findAll();
+        return $this->render("articles/showArticles.html.twig",[
+            "articles" => $a,
         ]);
     }
 
