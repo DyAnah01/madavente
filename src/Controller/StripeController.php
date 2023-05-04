@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class StripeController extends AbstractController
 {
     #[Route('/paiement', name: 'app_stripe')]
-    public function index(SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager, UserRepository $repoUser, CommandeRepository $repoCommande): Response
+    public function index(SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager): Response
     {
         $panier = $session->get('cart', []);
         if (empty($panier)) {
@@ -30,9 +30,6 @@ class StripeController extends AbstractController
         $commande->setToken(hash('sha256', random_bytes(32)));
         $user = $this->getUser();
         $commande->setUser($user);
-
-        // $manager->persist($commande);
-        // $manager->flush();
 
         Stripe\Stripe::setApiKey($this->getParameter('stripeSecretKey'));
         // Création d'un nouveau paiement
@@ -65,8 +62,6 @@ class StripeController extends AbstractController
                 'quantity' => $quantite,
             ];
         }
-
-        // dd($commande);
         $manager->persist($commande);
         $manager->flush();
 

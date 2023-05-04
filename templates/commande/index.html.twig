@@ -3,6 +3,10 @@
 {% block title %}Hello CommandeController!{% endblock %}
 
 {% block body %}
+{{ dump(detail) }}
+{{ dump(art) }}
+
+
 <h1 class="text-center fs-3 my-5"> Gestion de commande</h1>
 <div class="row justify-content-center mt-5">
     <div class="col-md-8">
@@ -13,8 +17,9 @@
                 <thead>
                     <tr>
                         <th class="bg-dark text-white" scope="col">N° Commande</th>
-                        <th class="bg-dark text-white" scope="col">Nom d'utilisateur</th>
-                        <th class="bg-dark text-white" scope="col">Date d'enregistrement</th>
+                        <th class="bg-dark text-white" scope="col">N° Utilisateur</th>
+                        <th class="bg-dark text-white" scope="col">Nom Utilisateur</th>
+                        <th class="bg-dark text-white" scope="col">Date Enregistrement</th>
                         <th class="bg-dark text-white" scope="col">Statut</th>
                         <th class="bg-dark text-white" scope="col">Total</th>
                     </tr>
@@ -23,6 +28,7 @@
                     {% for item in detail %}
                     <tr>
                         <th scope="row">{{item.id}} </th>
+                        <td> {{item.user.id}} </td>
                         <td> {{item.user.nom}} </td>
                         <th> {{item.createdAt | date('d:m:Y H:i:s') }} </th>
                         <td> {{item.statut}} </td>
@@ -46,7 +52,8 @@
                 <thead>
                     <tr>
                         <th class="bg-dark text-white" scope="col">N° de Commande</th>
-                        <th class="bg-dark text-white" scope="col">N° de l'article</th>
+                        <th class="bg-dark text-white" scope="col">N° de l'article <br> <a href="{{ path('show_articles') }}">+ infos</a> </th>
+                        {# <th class="bg-dark text-white" scope="col">Article</th> #}
                         <th class="bg-dark text-white" scope="col">Quantité</th>
 
                     </tr>
@@ -56,6 +63,7 @@
                     <tr>
                         <th scope="row">{{item.commande.id}} </th>
                         <td> {{item.articles.id}} </td>
+                        {# <td><img src="{{ asset('uploads/articles/'~item.articles.photo ) }}" class="card-img-top" alt="..."></td>  #}
                         <td> {{item.quantity}} </td>
                     </tr>
                     {% endfor %}
@@ -67,5 +75,6 @@
         <p>Aucune commande</p>
         {% endif %}
     </div>
+</div>
 
-    {% endblock body %}
+{% endblock body %}
