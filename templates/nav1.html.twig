@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg sticky-top navig">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo MadaVente" width="30" height="30"
+                class="d-inline-block align-text-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Gestion des articles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ path('app_categorie') }} ">Gestion de catégorie</a></li>
+                        <li><a class="dropdown-item" href="{{ path('add_articles') }}">Ajout d'article</a></li>
+                        <li><a class="dropdown-item" href="{{ path('show_articles') }}">Gestion des articles</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('historique_commande_admin') }}">Gestion de commande</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_user') }}">Gestion d'utilisateur</a>
+                </li>
+            </ul>
+
+            {% if app.user and app.user.roles[0] == "ROLE_USER" %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Articles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
+                        <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Mon compte
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Informations personnelles</a></li>
+                        <li><a class="dropdown-item" href="#">Historique de commande</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a>
+                </li>
+            </ul>
+            {% endif %}
+
+            {% else %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Articles
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
+                        <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a>
+                </li>
+            </ul>
+            {% endif %}
+
+            {% if app.user %}
+            {# Se déconnecter si user ou admin connecté #}
+            <a class="text-decoration-none text-dark pe-2" href=" {{ path('app_logout') }} "
+                title="Se déconnecter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                  </svg>
+                </a>
+            {% else %}
+            {# se connecter pour visiteur #}
+            <a class="text-decoration-none text-dark pe-2" href="{{ path('app_login') }}"
+                title="Se connecter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                  </svg>
+                </a>
+            {% endif %}
+
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-dark" type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                        class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>

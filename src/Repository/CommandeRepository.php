@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -47,6 +48,18 @@ class CommandeRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    // public function getCommandeUser($value)
+    // {
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('c.exampleField = :val')
+    //         ->setParameter('val', $value)
+    //         ->innerJoin('App\Entity\User','u', Join::WITH,'u.id = c.id_user')
+    //         ->join('c.commandeDetails', 'cd')
+    //         ->join('cd.article', 'a')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 
     //    /**
     //     * @return Commande[] Returns an array of Commande objects

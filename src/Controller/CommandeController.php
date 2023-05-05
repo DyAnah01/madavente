@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CommandeDetailsRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,4 +50,25 @@ class CommandeController extends AbstractController
             'art' => $art,
         ]);
     }
+
+    #[Route('/profile/historiqueCommande', name: 'historique_commande_user')]
+    public function historiqueCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    {
+        // $com = $repoCommande->findAll();
+        // $art = $repoComD->findAll();
+        $user = $this->getUser();
+        
+        // $userCommande = $repoUser->getCommande();
+        
+        // $commandeUser = $repoCommande->getCommandeUser($user);
+
+        return $this->render('commande/commandeUser.html.twig', [
+            // 'detail' => $com,
+            // 'art' => $art,
+            // 'commandeUser' => $commandeUser
+            'user' => $user,
+            // 'comm' => $userCommande,
+        ]);
+    }
+
 }

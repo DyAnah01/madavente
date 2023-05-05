@@ -17,7 +17,6 @@
             <p class="fs-5 mb-1"> <strong> prix : </strong>{{ article.prix }} € </p>
             <p class="card-text"><small class="text-muted">Catégorie: {{ article.idCategorie.nom}}</small></p>
             {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
-            <a href="{{ path('delete_article', {'id' : article.id}) }}">Suprimer l'article</a>
             {% else %}
             <div class="d-flex flex-row-reverse pb-5">
                 <a class="btn btn-outline-dark flex-end mb-5" href="{{ path('post_cart', {'id' : article.id}) }}" confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')>Ajouter
