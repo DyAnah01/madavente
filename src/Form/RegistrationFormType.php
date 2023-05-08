@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class,[
+            ->add('email', EmailType::class, [
                 "attr" => [
                     "class" => "form-control"
                 ]
@@ -42,19 +42,13 @@ class RegistrationFormType extends AbstractType
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'mapped' => false,
-                'first_options'  => [
-                    'label' => 'Mot de passe',
-                    'attr' => [
-                        ],   
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmation du mot de passe'],
+                'attr' => [
+                    'autocomplete' => 'new-password',
+                    "placeholder" => "8 caractères",
+                    "class" => "form-control"
                 ],
-                'second_options' => [
-                    'label' => 'Confirmation du mot de passe',
-                    'attr' => [
-                    ], ],
-                'attr' => ['autocomplete' => 'new-password',
-                "placeholder" => "8 caractères",
-                "class" => "form-control"
-                    ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Il vous faut un mot de passe',
