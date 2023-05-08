@@ -26,9 +26,8 @@ class ArticlesController extends AbstractController
 
 
     #[Route('/admin/add/articles', name: 'add_articles')]
-    public function addArticles(ArticlesRepository $repoA, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
+    public function addArticles(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger)
     {
-        // $articles = $repoA->findAll();
         $aarticle = new Articles;
         $form = $this->createForm(ArticlesType::class, $aarticle);
         $form->handleRequest($request);
@@ -67,7 +66,6 @@ class ArticlesController extends AbstractController
             return $this->redirectToRoute('add_articles');
         }
         return $this->render('articles/addArticles.html.twig', [
-            // "articles" => $articles,
             "formArticles" => $form->createView(),
         ]);
     }
