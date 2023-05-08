@@ -14,6 +14,8 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(ArticlesRepository $repoA, Request $request, PaginatorInterface $paginator): Response
     {
+        $aC = $repoA->getAllA();
+        dd($aC);
         // $articles = $repoArticle->findAll();
         // dd($articles);
         $pagination = $paginator->paginate(
@@ -29,7 +31,6 @@ class HomeController extends AbstractController
         //     'span_class' => 'whatever',
         // ]);
         return $this->render('home/index.html.twig', [
-            // "articles"=>$articles,
             'pagination' => $pagination,
         ]);
     }
@@ -49,5 +50,15 @@ class HomeController extends AbstractController
     public function afficheMentions()
     {
         return $this->render('home/mentionsLegales.html.twig');
+    }
+
+    #[Route('/recherche', name: 'search')]
+    public function FunctionName(Request $request)
+    {
+        $search = $request->query->get('search');
+        return $this->render('nav.html.twig', [
+            "search" => $search,
+        ]);
+
     }
 }

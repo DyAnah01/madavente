@@ -81,6 +81,14 @@ class ArticlesRepository extends ServiceEntityRepository
        ;
    }
 
+public function getAllA(){
+    return $this->createQueryBuilder('a')
+    ->Select('a.id as idArt','a.titre','a.description','a.photo','a.prix','a.dateCreation','a.stock','a.shortDescription','c.id as idCat','c.nom')
+    ->innerJoin('App\Entity\Categorie','c', Join::WITH, 'c.id = a.idCategorie')
+    ->getQuery()
+    ->getResult();        
+}
+
 //    /**
 //     * @return Articles[] Returns an array of Articles objects
 //     */
