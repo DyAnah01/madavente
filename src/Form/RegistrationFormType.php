@@ -4,17 +4,18 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -36,10 +37,23 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => "En m'inscrivant à ce site j'accepte les conditions général"
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'La confirmation du mot de passe n\'est pas valide',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
                 'mapped' => false,
+                'first_options'  => [
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                    "placeholder" => "8 caractères",
+                        ],   
+                ],
+                'second_options' => [
+                    'label' => 'Confirmation du mot de passe',
+                    'attr' => [
+                    "placeholder" => "8 caractères",
+                    ], ],
                 'attr' => ['autocomplete' => 'new-password',
                 "placeholder" => "8 caractères",
                 "class" => "form-control"
@@ -49,7 +63,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Il vous faut un mot de passe',
                     ]),
                     new Length([
-                        'min' => 6,
+                        'min' => 8,
                         'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères. Veuillez en saisir un plus long.',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
