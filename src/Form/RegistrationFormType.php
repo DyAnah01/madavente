@@ -24,7 +24,6 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class,[
                 "attr" => [
-                    "placeholder" => "Entrez votre email",
                     "class" => "form-control"
                 ]
             ])
@@ -46,13 +45,11 @@ class RegistrationFormType extends AbstractType
                 'first_options'  => [
                     'label' => 'Mot de passe',
                     'attr' => [
-                    "placeholder" => "8 caractères",
                         ],   
                 ],
                 'second_options' => [
                     'label' => 'Confirmation du mot de passe',
                     'attr' => [
-                    "placeholder" => "8 caractères",
                     ], ],
                 'attr' => ['autocomplete' => 'new-password',
                 "placeholder" => "8 caractères",
@@ -74,7 +71,6 @@ class RegistrationFormType extends AbstractType
                 "label" => "Nom",
                 "required" => false,
                 "attr" => [
-                    "placeholder" => "Entrez votre nom",
                     "class" => "form-control"
                 ]
             ])
@@ -82,7 +78,6 @@ class RegistrationFormType extends AbstractType
                 "label" => "Prénom",
                 "required" => false,
                 "attr" => [
-                    "placeholder" => "Entrez votre prénom",
                     "class" => "form-control"
                 ]
             ])
@@ -90,7 +85,6 @@ class RegistrationFormType extends AbstractType
                 "label" => "Adresse",
                 "required" => false,
                 "attr" => [
-                    "placeholder" => "ex:11 rue du général",
                     "class" => "form-control"
                 ]
             ])
@@ -98,7 +92,6 @@ class RegistrationFormType extends AbstractType
                 "label" => "Code postal",
                 "required" => false,
                 "attr" => [
-                    "placeholder" => "ex:75000",
                     "class" => "form-control"
                 ]
             ])
@@ -106,7 +99,6 @@ class RegistrationFormType extends AbstractType
                 "label" => "Téléphone",
                 "required" => false,
                 "attr" => [
-                    "placeholder" => "ex:0000000000",
                     "class" => "form-control"
                 ]
             ]);
