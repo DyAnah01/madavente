@@ -86,13 +86,20 @@
                         <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
                     </ul>
                 </li>
+                {# <li class="nav-item">
+                    <select class="form-select" aria-label="Default select example" name="articleCategorie">
+                        {% for value in categorie %}
+                        <option value=" {{ value.id }} "> {{ value.nom }} </option>
+                        {% endfor %}
+                    </select>
+                </li> #}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a>
                 </li>
             </ul>
             {% endif %}
             {% if app.user %}
-            {# Se déconnecter si user ou admin est connecté #}
+            {# logout if user or admin conected #}
             <a class="text-decoration-none text-dark pe-2" href=" {{ path('app_logout') }} " title="Se déconnecter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                     class="bi bi-box-arrow-right" viewBox="0 0 16 16">
@@ -103,7 +110,7 @@
                 </svg>
             </a>
             {% else %}
-            {# se connecter pour visiteur qui ne sont pas connecté #}
+            {# login if visitor #}
             <a class="text-decoration-none text-dark pe-2" href="{{ path('app_login') }}" title="Se connecter">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                     class="bi bi-person-fill" viewBox="0 0 16 16">

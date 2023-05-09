@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ArticlesRepository;
+use App\Repository\CategorieRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,10 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(ArticlesRepository $repoA, Request $request, PaginatorInterface $paginator): Response
+    public function index(ArticlesRepository $repoA,CategorieRepository $repoCategorie , Request $request, PaginatorInterface $paginator): Response
     {
-        $aC = $repoA->getAllA();
-        dd($aC);
+        // $aC = $repoA->getAllA();
+        // dd($aC);
         // $articles = $repoArticle->findAll();
         // dd($articles);
         $pagination = $paginator->paginate(
@@ -30,8 +31,21 @@ class HomeController extends AbstractController
         //     'style' => 'bottom',
         //     'span_class' => 'whatever',
         // ]);
+        // if($request->isMethod('post')){
+        //     $categorie = $repoCategorie->findAll();
+        //     $idCat = $request->request->get('articleCategorie');
+        //     $art = $repoCategorie->getArticleWithIdCat($idCat);
+        //     return $this->render("home/index.html.twig", [
+        //         'filterArticles' => true,
+        //         'categorie' => $categorie,
+        //         'art' => $art
+
+        //     ]);
+        // }
         return $this->render('home/index.html.twig', [
+            // 'filterArticles' => false,
             'pagination' => $pagination,
+            // 'art' => $aC,
         ]);
     }
     #[Route('/A_propos', name: 'info')]

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\CommandeDetailsRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
@@ -52,14 +53,14 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/profile/historiqueCommande', name: 'historique_commande_user')]
-    public function historiqueCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    public function historiqueCommandeUser(CommandeDetailsRepository $repoComD, User $use, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
     {
         // $com = $repoCommande->findAll();
         // $art = $repoComD->findAll();
-        $user = $this->getUser();
-        
+        $user = $this->getUser()->$use->getCommandes();
+
         // $userCommande = $repoUser->getCommande();
-        
+
         // $commandeUser = $repoCommande->getCommandeUser($user);
 
         return $this->render('commande/commandeUser.html.twig', [
@@ -70,5 +71,4 @@ class CommandeController extends AbstractController
             // 'comm' => $userCommande,
         ]);
     }
-
 }
