@@ -61,14 +61,4 @@ class CommandeController extends AbstractController
         ]);
     }
 
-
-    #[Route('/admin/article/supprimer/{id}', name: "delete_article")]
-    public function deleteArticle(Articles $art, EntityManagerInterface $manager)
-    {
-        $idArt = $art->getId();
-        $manager->remove($art);
-        $manager->flush();
-        $this->addFlash("success", "L'article N° $idArt a bien été supprimé");
-        return $this->redirectToRoute("add_articles");
-    }
 }
