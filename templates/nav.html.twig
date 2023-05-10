@@ -47,8 +47,9 @@
                         Articles
                     </a>
                     <ul class="dropdown-menu">
+                        {# Boucle for  #}
                         <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
-                        <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
+
                     </ul>
                 </li>
 
@@ -93,9 +94,9 @@
                         {% endfor %}
                     </select>
                 </li> #}
-                <li class="nav-item">
+                {# <li class="nav-item">
                     <a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a>
-                </li>
+                </li> #}
             </ul>
             {% endif %}
             {% if app.user %}

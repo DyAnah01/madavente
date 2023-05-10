@@ -53,22 +53,22 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/profile/historiqueCommande', name: 'historique_commande_user')]
-    public function historiqueCommandeUser(CommandeDetailsRepository $repoComD, User $use, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    public function historiqueCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
     {
-        // $com = $repoCommande->findAll();
-        // $art = $repoComD->findAll();
-        $user = $this->getUser()->$use->getCommandes();
-
-        // $userCommande = $repoUser->getCommande();
-
-        // $commandeUser = $repoCommande->getCommandeUser($user);
-
+        $com = $this->getUser()->getCommandes();
         return $this->render('commande/commandeUser.html.twig', [
-            // 'detail' => $com,
-            // 'art' => $art,
-            // 'commandeUser' => $commandeUser
-            'user' => $user,
-            // 'comm' => $userCommande,
+            'commandes' => $com,
         ]);
+    }
+
+
+    #[Route('/admin/article/supprimer/{id}', name: "delete_article")]
+    public function deleteArticle(Articles $art, EntityManagerInterface $manager)
+    {
+        $idArt = $art->getId();
+        $manager->remove($art);
+        $manager->flush();
+        $this->addFlash("success", "L'article N° $idArt a bien été supprimé");
+        return $this->redirectToRoute("add_articles");
     }
 }
