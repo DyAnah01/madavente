@@ -27,14 +27,40 @@ class RegistrationFormType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add('RGPDConsent', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-                'label' => "En m'inscrivant à ce site j'accepte les conditions général"
+            ->add('nom', TextType::class, [
+                "label" => "Nom",
+                "required" => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('prenom', TextType::class, [
+                "label" => "Prénom",
+                "required" => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('tel', TelType::class, [
+                "label" => "Téléphone",
+                "required" => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('adresse', TextType::class, [
+                "label" => "Adresse",
+                "required" => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
+            ])
+            ->add('cp', NumberType::class, [
+                "label" => "Code postal",
+                "required" => false,
+                "attr" => [
+                    "class" => "form-control"
+                ]
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -61,40 +87,14 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('nom', TextType::class, [
-                "label" => "Nom",
-                "required" => false,
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add('prenom', TextType::class, [
-                "label" => "Prénom",
-                "required" => false,
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add('adresse', TextType::class, [
-                "label" => "Adresse",
-                "required" => false,
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add('cp', NumberType::class, [
-                "label" => "Code postal",
-                "required" => false,
-                "attr" => [
-                    "class" => "form-control"
-                ]
-            ])
-            ->add('tel', TelType::class, [
-                "label" => "Téléphone",
-                "required" => false,
-                "attr" => [
-                    "class" => "form-control"
-                ]
+            ->add('RGPDConsent', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'You should agree to our terms.',
+                    ]),
+                ],
+                'label' => "En m'inscrivant à ce site j'accepte les conditions général"
             ]);
     }
 

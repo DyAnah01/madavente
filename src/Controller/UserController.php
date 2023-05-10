@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -37,6 +39,26 @@ class UserController extends AbstractController
         $user = $this->getUser();
         return $this->render('user/infoForUser.html.twig', [
             'user' => $user,
+        ]);
+    }
+
+    #[Route('/profile/info/update/{id}', name: "update_info_user")]
+    public function updateInfoUserByHimself($id, UserRepository $repoUser, Request $request, EntityManagerInterface $em)
+    {
+        $user = $repoUser->find($id);
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash("success", "Vos informations ont bien été mis à jour");
+            return $this->redirectToRoute("info_user");
+        }
+        return $this->render("user/updateInfoForUser.html.twig", [
+            "formUser" => $form->createView(),
+            "user" => $user,
         ]);
     }
 }
