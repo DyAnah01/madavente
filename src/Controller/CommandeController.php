@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
+use App\Entity\CommandeDetails;
 use App\Entity\User;
 use App\Repository\CommandeDetailsRepository;
 use App\Repository\CommandeRepository;
@@ -60,5 +62,15 @@ class CommandeController extends AbstractController
             'commandes' => $com,
         ]);
     }
+
+    // #[Route('/profile/Order/remove/{id}', name: 'delete_order')]
+    // public function removeOneOrder(CommandeDetails $commande, EntityManagerInterface $em)
+    // {
+    //     $idOrder = $commande->getId();
+    //     $em->remove($idOrder);
+    //     $em->flush();
+    //     $this->addFlash("success", "La commande N° $idOrder a bien été annulé");
+    //     return $this->redirectToRoute("historique_commande_user");
+    // }
 
 }

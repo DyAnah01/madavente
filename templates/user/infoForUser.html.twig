@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %} {{ parent() }}|Info personnelle {% endblock title %}
+
+{% block body %}
+
+{% for notification in app.flashes('success') %}
+<div class="alert alert-success col-md-6 mx-auto text-center disparition">
+    {{ notification }}
+</div>
+{% endfor %}
+
+{% if user.isVerified == '0' %}
+<p>Votre email n'est pas encore vérifié</p>
+{% else %}
+{% endif %}
+
+<a href="" class="text-end text-decoration-none"> Modifier mes informations
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+      </svg>
+</a>
+
+<table class="table table-bordered my-3">
+    <tr>
+        <th scope="col">Email</th>
+        <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+        <th scope="col">Nom</th>
+        <td> {{ user.nom }} </td>
+    </tr>
+    <tr>
+        <th scope="col">Prénom</th>
+        <td> {{ user.prenom }} </td>
+    </tr>
+    <tr>
+        <th scope="col">Adresse</th>
+        <td>{{ user.adresse }} ({{ user.cp }})</td>
+    </tr>
+    <tr>
+        <th scope="col">Tel</th>
+        <td>+33 {{ user.tel }} </td>
+    </tr>
+</table>
+
+
+{% endblock body %}

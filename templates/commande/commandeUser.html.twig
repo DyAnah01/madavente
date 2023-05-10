@@ -13,6 +13,11 @@
     </svg>
 </a>
 #}
+{% for notification in app.flashes('success') %}
+<div class="alert alert-success col-md-6 mx-auto text-center disparition">
+    {{ notification }}
+</div>
+{% endfor %}
 <h1 class="py-4 text-center">Vos commandes</h1>
 {% if commandes %}
 {% for item1 in commandes %}
@@ -32,8 +37,8 @@
                     date('H:i:s') }} </p>
             </div>
         </div>
-        <a href="{#{{ path('delete_commande', {'id' : item1.id}) }}#}" id="annule" class="text-decoration-none align-self-end"
-            onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande ?')">Annuler la commande</a>
+        {# <a href="{{ path('delete_order', {'id' : item1.id}) }}" id="annule" class="text-decoration-none align-self-end"
+            onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande ?')">Annuler la commande</a> #}
 
     </div>
     <div class="traits"></div> <!-- Trait de séparation-->
