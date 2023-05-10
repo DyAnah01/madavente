@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\CommandeDetails;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<CommandeDetails>
@@ -38,6 +39,33 @@ class CommandeDetailsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    // public function findOneCommande($value)
+    // {
+    //     return $this->createQueryBuilder('c')
+    //             ->Select('c.id as idCommande','v.id as idVehicule','v.titre as titreVehicule','v.marque','v.modele','v.description as descriptionVehicule','v.photo as photoVehicule','v.prix_journalier','a.id as idAgence', 'a.titre as titreAgences','a.adresse','a.ville','a.cp','a.description as descriptionAgences','a.photo as photoAgences','c.date_heure_depart as dayStart', 'c.date_heure_fin as dayEnd', 'c.prix_total as totalPrice','c.date_enregistrement as dateEnregistrement','u.id as idUser','u.email as emailUser')
+    //             ->innerJoin('App\Entity\Vehicule','v', Join::WITH, 'v.id = c.id_vehicule')            
+    //             ->innerJoin('App\Entity\Agences', 'a' , Join::WITH, 'a.id = c.id_agence')
+    //             ->innerJoin('App\Entity\User','u', Join::WITH,'u.id = c.id_user')
+    //             ->andWhere('u.id = :val')
+    //             ->setParameter('val', $value)
+    //             ->getQuery()		
+    //             ->getResult();
+    // }
+
+    // *******************
+        // public function FindOneCommande($value)
+        // {
+        //     return $this->createQueryBuilder('cd')
+        //         ->select('cd.commande.id as idCom' )
+        //         ->innerJoin('App\Entity\User','u', Join::WITH,'u.id = cd.id_user')
+        //         ->andWhere('u.id = :val')
+        //         ->setParameter('val', $value)
+        //         ->getQuery()
+        //         ->getResult()
+        //     ;
+        // }
+    // *******************
 
 //    /**
 //     * @return CommandeDetails[] Returns an array of CommandeDetails objects

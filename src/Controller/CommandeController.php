@@ -3,19 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
-use App\Repository\ArticlesRepository;
+use App\Entity\CommandeDetails;
+use App\Entity\User;
 use App\Repository\CommandeDetailsRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 
 class CommandeController extends AbstractController
 {
@@ -45,9 +43,8 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/admin/historiqueCommande', name: 'historique_commande_admin')]
-    public function historique(CommandeDetailsRepository $repoComD, ArticlesRepository $repoArticles, CommandeRepository $repoCommande, UserRepository $repoUser): Response
+    public function historique(CommandeDetailsRepository $repoComD, CommandeRepository $repoCommande): Response
     {
-
         $com = $repoCommande->findAll();
         $art = $repoComD->findAll();
 
@@ -56,4 +53,24 @@ class CommandeController extends AbstractController
             'art' => $art,
         ]);
     }
+
+    #[Route('/profile/historiqueCommande', name: 'historique_commande_user')]
+    public function historiqueCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    {
+        $com = $this->getUser()->getCommandes();
+        return $this->render('commande/commandeUser.html.twig', [
+            'commandes' => $com,
+        ]);
+    }
+
+    // #[Route('/profile/Order/remove/{id}', name: 'delete_order')]
+    // public function removeOneOrder(CommandeDetails $commande, EntityManagerInterface $em)
+    // {
+    //     $idOrder = $commande->getId();
+    //     $em->remove($idOrder);
+    //     $em->flush();
+    //     $this->addFlash("success", "La commande N° $idOrder a bien été annulé");
+    //     return $this->redirectToRoute("historique_commande_user");
+    // }
+
 }

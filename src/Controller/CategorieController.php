@@ -55,7 +55,7 @@ class CategorieController extends AbstractController
     }
 
     #[Route('admin/categorie/delete/{id}', name:'supprimer_categorie')]
-    public function agences_delete(Categorie $categorie, EntityManagerInterface $manager)
+    public function cat_delete(Categorie $categorie, EntityManagerInterface $manager)
     {
         $idCategorie = $categorie->getId();
         $manager->remove($categorie);
