@@ -9,6 +9,7 @@ use App\Repository\CommandeDetailsRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -43,27 +44,32 @@ class CommandeController extends AbstractController
         return $this->render('payment/cancel.html.twig', []);
     }
 
+    // Affiche la liste de commande pour Admin
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/admin/historiqueCommande', name: 'historique_commande_admin')]
     public function historique(CommandeDetailsRepository $repoComD, CommandeRepository $repoCommande): Response
     {
         $com = $repoCommande->findAll();
 
-        return $this->render('commande/index.html.twig', [
+        return $this->render('commande/listOrderAdmin.html.twig', [
             'detail' => $com,
         ]);
     }
 
-    #[Route('/admin/detail/historique/ommande', name: 'details_historique_commande_admin')]
+    // Affiche la liste de commande détaillé pour Admin
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/admin/detail/historique/commande', name: 'details_historique_commande_admin')]
     public function detailOrderAdmin(CommandeDetailsRepository $repoComD, CommandeRepository $repoCommande): Response
     {
         $com = $repoCommande->findAll();
 
-        return $this->render('commande/index.html.twig', [
+        return $this->render('commande/commandeAdmin.html.twig', [
             'detail' => $com,
         ]);
     }
 
-    // Affiche la liste de commande
+    // Affiche la liste de commande pour User
+    #[IsGranted('ROLE_USER')]
     #[Route('/profile/historique/commandes', name: 'list_commande_user')]
     public function listCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
     {
@@ -73,7 +79,8 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    // Affiche la liste de commande détaillé
+    // Affiche la liste de commande détaillé User
+    #[IsGranted('ROLE_USER')]
     #[Route('/profile/details/commandes', name: 'detail_historique_commande_user')]
     public function detailCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
     {
@@ -84,6 +91,7 @@ class CommandeController extends AbstractController
     }
 
     // Set statut commande user "annulé" si remove_commande_user
+    #[IsGranted('ROLE_USER')]
     #[Route('/profile/commande/delete/{token}', name: 'remove_commande_user')]
     public function removeCommande($token, EntityManagerInterface $em, CommandeRepository $repoC)
     {
