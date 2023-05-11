@@ -54,8 +54,19 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/profile/historiqueCommande', name: 'historique_commande_user')]
-    public function historiqueCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    // Affiche la liste de commande
+    #[Route('/profile/historique/commandes', name: 'list_commande_user')]
+    public function listCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    {
+        $com = $this->getUser()->getCommandes();
+        return $this->render('commande/listOrderUser.html.twig', [
+            'commandes' => $com,
+        ]);
+    }
+
+    // Affiche la liste de commande détaillé
+    #[Route('/profile/details/commandes', name: 'detail_historique_commande_user')]
+    public function detailCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
     {
         $com = $this->getUser()->getCommandes();
         return $this->render('commande/commandeUser.html.twig', [
@@ -63,14 +74,19 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    // #[Route('/profile/Order/remove/{id}', name: 'delete_order')]
-    // public function removeOneOrder(CommandeDetails $commande, EntityManagerInterface $em)
-    // {
-    //     $idOrder = $commande->getId();
-    //     $em->remove($idOrder);
-    //     $em->flush();
-    //     $this->addFlash("success", "La commande N° $idOrder a bien été annulé");
-    //     return $this->redirectToRoute("historique_commande_user");
-    // }
+    // Set statut commande user "annulé" si remove_commande_user
+    #[Route('/profile/commande/delete/{token}', name: 'remove_commande_user')]
+    public function removeCommande($token, EntityManagerInterface $em, CommandeRepository $repoC)
+    {
+        $commande = $repoC->findOneBy(['token' => $token]);
 
+        if ($commande->getStatut('Payé')) {
+            $commande->setStatut('Annulé');
+        }
+        $em->persist($commande);
+        $em->flush();
+
+        $this->addFlash("success", "La commande a bien été annulé");
+        return $this->redirectToRoute("list_commande_user");
+    }
 }
