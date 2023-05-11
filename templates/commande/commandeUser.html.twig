@@ -1,23 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }}|Historique de commande{% endblock %}
+{% block title %}{{ parent() }}|Commandes détaillées{% endblock %}
 
 {% block body %}
-{#
-<a href="" class="text-decoration-none" title="Supprimer l'article"
-    onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande ?')">
-    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black" class="bi bi-trash3"
-        viewBox="0 0 16 16">
-        <path
-            d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-    </svg>
-</a>
-#}
+
 {% for notification in app.flashes('success') %}
 <div class="alert alert-success col-md-6 mx-auto text-center disparition">
     {{ notification }}
 </div>
 {% endfor %}
+<a href="{{ path('list_commande_user') }}" title="Retour à la liste" class="fs-3 text-decoration-none text-dark">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dark" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+    <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+  </svg>
+  Retour
+</a>
 <h1 class="py-4 text-center">Vos commandes</h1>
 {% if commandes %}
 {% for item1 in commandes %}
@@ -31,7 +29,6 @@
             <div div="containerInfoHisto">
                 <p id="tex">{{ item2.articles.titre }}</p>
                 <p class="pSp"><strong>Prix Unitaire: </strong>{{ item2.articles.prix}}€</p>
-                <p class="pSp"><strong>Prix Total: </strong>{{ item1.total}}€</p>
                 <p class="pSp"><strong>Quantité: </strong>{{ item2.quantity}} </p>
                 <p class="pSp petitTexte">Commandé le {{item1.createdAt | date('d:m:Y') }} à {{item1.createdAt |
                     date('H:i:s') }} </p>
@@ -42,13 +39,19 @@
 
     </div>
     <div class="traits"></div> <!-- Trait de séparation-->
+    <p class="pSp"><strong>Prix Total: </strong>{{ item1.total}}€</p>
+
 </div><!-- Fin container historiqueUser -->
 {% endfor %}
+{% else %}
 {% endif %}
 {% endfor %}
 {% else %}
 <h1 class="text-center fs-3 my-5">Aucune commande pour l'instant</h1>
 {% endif %}
+
+
+
 
 
 

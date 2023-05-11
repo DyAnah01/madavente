@@ -47,7 +47,7 @@
                         Articles
                     </a>
                     <ul class="dropdown-menu">
-                        {# Boucle for  #}
+                        {# Boucle for #}
                         <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
 
                     </ul>
@@ -60,12 +60,11 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{{ path('info_user') }}">Informations personnelles</a></li>
-                        <li><a class="dropdown-item" href="{{ path('historique_commande_user') }}">Historique de
+                        <li><a class="dropdown-item" href="{{ path('list_commande_user') }}">Historique de
                                 commande</a></li>
                         <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
                     </ul>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('get_cart') }}"> Mon Panier</a>
                 </li>
@@ -87,18 +86,9 @@
                         <li><a class="dropdown-item" href="#">SELECT CATEGORIE</a></li>
                     </ul>
                 </li>
-                {# <li class="nav-item">
-                    <select class="form-select" aria-label="Default select example" name="articleCategorie">
-                        {% for value in categorie %}
-                        <option value=" {{ value.id }} "> {{ value.nom }} </option>
-                        {% endfor %}
-                    </select>
-                </li> #}
-                {# <li class="nav-item">
-                    <a class="nav-link" href="{{ path('get_cart') }}">Mon panier</a>
-                </li> #}
             </ul>
             {% endif %}
+
             {% if app.user %}
             {# logout if user or admin conected #}
             <a class="text-decoration-none text-dark pe-2" href=" {{ path('app_logout') }} " title="Se déconnecter">

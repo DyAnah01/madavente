@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }}|Commandes détaillées{% endblock %}
+
+{% block body %}
+
+{% for notification in app.flashes('success') %}
+<div class="alert alert-success col-md-6 mx-auto text-center disparition">
+    {{ notification }}
+</div>
+{% endfor %}
+<a href="{{ path('historique_commande_admin') }}" title="Retour à la liste" class="fs-3 text-decoration-none text-dark">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dark" class="bi bi-chevron-double-left"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        <path fill-rule="evenodd"
+            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+    </svg>
+    Retour
+</a>
+{% if detailCommande %}
+<h1 class="py-4 text-center">Détails de la commande</h1>
+{% for item2 in detailCommande.commandeDetails %}
+<div id="historiqueUser">
+    <p class="pSp"><strong>Commande N°: </strong>{{ detailCommande.id}}</p>
+    <p><strong> Statut : </strong>{{detailCommande.statut}}</p>
+    <div class="d-flex justify-content-between">
+        <div class="d-flex">
+            <img src="{{ asset('uploads/articles/'~item2.articles.photo ) }}" id="petitimg" alt="image article">
+            <div div="containerInfoHisto">
+                <p id="tex">{{ item2.articles.titre }}</p>
+                <p class="pSp"><strong>Prix Unitaire: </strong>{{ item2.articles.prix}}€</p>
+                <p class="pSp"><strong>Quantité: </strong>{{ item2.quantity}} </p>
+                <p class="pSp petitTexte">Commandé le {{detailCommande.createdAt | date('d:m:Y') }} à
+                    {{detailCommande.createdAt |
+                    date('H:i:s') }} </p>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="traits"></div> <!-- Trait de séparation-->
+</div><!-- Fin container historiqueUser -->
+{% endfor %}
+<p class="pSp"><strong>Prix Total: </strong>{{ detailCommande.total}}€</p>
+
+{% else %}
+<h1 class="text-center fs-3 my-5">Aucune commande pour l'instant</h1>
+{% endif %}
+
+
+
+
+
+
+{% endblock body %}
