@@ -29,7 +29,6 @@
             <div div="containerInfoHisto">
                 <p id="tex">{{ item2.articles.titre }}</p>
                 <p class="pSp"><strong>Prix Unitaire: </strong>{{ item2.articles.prix}}€</p>
-                <p class="pSp"><strong>Prix Total: </strong>{{ item1.total}}€</p>
                 <p class="pSp"><strong>Quantité: </strong>{{ item2.quantity}} </p>
                 <p class="pSp petitTexte">Commandé le {{item1.createdAt | date('d:m:Y') }} à {{item1.createdAt |
                     date('H:i:s') }} </p>
@@ -40,8 +39,11 @@
 
     </div>
     <div class="traits"></div> <!-- Trait de séparation-->
+    <p class="pSp"><strong>Prix Total: </strong>{{ item1.total}}€</p>
+
 </div><!-- Fin container historiqueUser -->
 {% endfor %}
+{% else %}
 {% endif %}
 {% endfor %}
 {% else %}
