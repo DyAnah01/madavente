@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CommandeController extends AbstractController
@@ -46,11 +47,19 @@ class CommandeController extends AbstractController
     public function historique(CommandeDetailsRepository $repoComD, CommandeRepository $repoCommande): Response
     {
         $com = $repoCommande->findAll();
-        $art = $repoComD->findAll();
 
         return $this->render('commande/index.html.twig', [
             'detail' => $com,
-            'art' => $art,
+        ]);
+    }
+
+    #[Route('/admin/detail/historique/ommande', name: 'details_historique_commande_admin')]
+    public function detailOrderAdmin(CommandeDetailsRepository $repoComD, CommandeRepository $repoCommande): Response
+    {
+        $com = $repoCommande->findAll();
+
+        return $this->render('commande/index.html.twig', [
+            'detail' => $com,
         ]);
     }
 
@@ -79,8 +88,10 @@ class CommandeController extends AbstractController
     public function removeCommande($token, EntityManagerInterface $em, CommandeRepository $repoC)
     {
         $commande = $repoC->findOneBy(['token' => $token]);
-
-        if ($commande->getStatut('Payé')) {
+        if( $commande == null){
+           throw new NotFoundHttpException;
+        }
+        if ($commande->getStatut() == 'Payé') {
             $commande->setStatut('Annulé');
         }
         $em->persist($commande);
