@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,6 +18,7 @@ class HomeType extends AbstractType
             'choice_label'=>'nom',
             'label' => "Article",
             'required'=>false,
+            'expanded' => true,
             // "attr" => [
             //     "class" => "m-0 p-2",
             // ]

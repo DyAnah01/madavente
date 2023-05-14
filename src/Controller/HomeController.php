@@ -48,6 +48,7 @@ class HomeController extends AbstractController
             // 'art' => $aC,
         ]);
     }
+    
     #[Route('/A_propos', name: 'info')]
     public function info()
     {

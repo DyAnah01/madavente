@@ -7,7 +7,6 @@ use App\Entity\CommandeDetails;
 use Stripe;
 use App\Repository\ArticlesRepository;
 use App\Repository\CommandeRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class StripeController extends AbstractController
 {
     #[Route('/paiement', name: 'app_stripe')]
-    public function index(SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager): Response
+    public function index(SessionInterface $session, ArticlesRepository $repoArticle, EntityManagerInterface $manager, CommandeRepository $repoCommande): Response
     {
         $panier = $session->get('cart', []);
         if (empty($panier)) {
@@ -41,6 +40,7 @@ class StripeController extends AbstractController
             'cancel_url' => $this->generateUrl('commande_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ];
 
+
         $art = $repoArticle->getAllArticles(array_keys($panier));
 
         foreach ($panier as $id => $quantite) {
@@ -57,11 +57,14 @@ class StripeController extends AbstractController
                         'name' => $art[$id]->getTitre(),
                         'images' => [$art[$id]->getPhoto()]
                     ],
-                    'unit_amount' => $art[$id]->getPrix() * 100
+                    'unit_amount_decimal' => $art[$id]->getPrix() *100
                 ],
                 'quantity' => $quantite,
             ];
         }
+
+
+
         $manager->persist($commande);
         $manager->flush();
 

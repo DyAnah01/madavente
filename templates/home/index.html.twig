@@ -29,13 +29,19 @@
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-dark" type="submit">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                    class="bi bi-search" viewBox="0 0 16 16">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16">
                     <path
                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                 </svg>
             </button>
         </form>
+        {# <div>
+            <h6>Par catégorie</h6>
+        </div>
+        <div>
+            <h6>Par prix</h6>
+        </div> #}
     </div>
 </div>
 
@@ -49,8 +55,10 @@
         <img src="{{ asset('uploads/articles/'~item.photo ) }}" class="card-img-top" alt="...">
         <div class="card-body w-100">
             <h5 class="card-title">{{ item.titre }}</h5>
-            {# <p class="card-text" style="height:2rem">{{ item.shortDescription }}</p>
-            <p class="card-text pt-2">{{ item.prix }}€</p> #}
+            {% if item.stock < 1 %} <p class="text-danger text-end"> * Rupture de stock</p>{% endif %}
+
+                {# <p class="card-text" style="height:2rem">{{ item.shortDescription }}</p>
+                <p class="card-text pt-2">{{ item.prix }}€</p> #}
         </div>
     </div>
     {% endfor %}

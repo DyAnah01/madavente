@@ -16,18 +16,21 @@
             <p class="fs-4  descri">{{ article.description }}</p>
             <p class="fs-5 mb-1"> <strong> prix : </strong>{{ article.prix }} € </p>
             <p class="card-text"><small class="text-muted">Catégorie: {{ article.idCategorie.nom}}</small></p>
-            {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
-            {% else %}
-            <div class="d-flex flex-row-reverse pb-5">
-                <a class="btn btn-outline-dark flex-end mb-5" href="{{ path('post_cart', {'id' : article.id}) }}" confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')>Ajouter
-                    au
-                    panier</a>
-            </div>
-            {% endif %}
-            <div class="d-flex flex-row-reverse">
-                <a class="d-flex flex-end text-decoration-none mt-5 mb-2" href="{{ path('home') }}">Retour à l'accueil</a>
-            </div>
-                
+            {% if app.user and is_granted('ROLE_ADMIN') %}
+            {% elseif article.stock < 1 %} <p class="text-danger text-end">Article disponible plutard</p>
+                {% else %}
+                <div class="d-flex flex-row-reverse pb-5">
+                    <a class="btn btn-outline-dark flex-end mb-5" href="{{ path('post_cart', {'id' : article.id}) }}"
+                        confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')>Ajouter
+                        au
+                        panier</a>
+                </div>
+                {% endif %}
+                <div class="d-flex flex-row-reverse">
+                    <a class="d-flex flex-end text-decoration-none mt-5 mb-2" href="{{ path('home') }}">Retour à
+                        l'accueil</a>
+                </div>
+
         </div>
     </div>
 </div>

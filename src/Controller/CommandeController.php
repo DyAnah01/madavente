@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commande;
 use App\Entity\CommandeDetails;
 use App\Entity\User;
+use App\Repository\ArticlesRepository;
 use App\Repository\CommandeDetailsRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\UserRepository;
@@ -33,6 +34,18 @@ class CommandeController extends AbstractController
             throw new BadRequestHttpException;
         }
         $commande->setStatut("Payé");
+
+
+        // Gestion de stock
+        $co = $repoCommande->findOneBy(['token' => $commande->getToken()]);
+        foreach ($co->getCommandeDetails() as $valueDetail) {
+            $quantityArticle = $valueDetail->getQuantity();
+            $stock = $valueDetail->getArticles()->getStock();
+            $stock = $stock - $quantityArticle;
+            $valueDetail->getArticles()->setStock($stock);
+        }
+
+
         $manager->persist($commande);
         $manager->flush();
 
@@ -71,7 +84,7 @@ class CommandeController extends AbstractController
     // Set statut commande user "Livré" si remove_commande_user
     #[IsGranted("ROLE_ADMIN")]
     #[Route('/admin/commande/livree/{token}', name: 'commande_livré')]
-    public function commandeLivré($token, EntityManagerInterface $em, CommandeRepository $rC)
+    public function commandeLivré($token, EntityManagerInterface $em, CommandeRepository $rC, ArticlesRepository $rA)
     {
         $c = $rC->findOneBy(['token' => $token]);
         if ($c == null) {
