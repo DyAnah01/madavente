@@ -22,6 +22,7 @@
 {% if detailCommande %}
 <h1 class="py-4 text-center">Détails de la commande</h1>
 {% for item2 in detailCommande.commandeDetails %}
+{# {{ dump(item2) }} #}
 <div id="historiqueUser">
     <p class="pSp"><strong>Commande N°: </strong>{{ detailCommande.id}}</p>
     <p><strong> Statut : </strong>{{detailCommande.statut}}</p>
@@ -32,6 +33,8 @@
                 <p id="tex">{{ item2.articles.titre }}</p>
                 <p class="pSp"><strong>Prix Unitaire: </strong>{{ item2.articles.prix}}€</p>
                 <p class="pSp"><strong>Quantité: </strong>{{ item2.quantity}} </p>
+                <p class="pSp"><strong>Propriétaire de la commande: </strong> id: {{ item2.commande.user.id}} | Nom: {{
+                    item2.commande.user.nom}} | email: {{ item2.commande.user.email}} </p>
                 <p class="pSp petitTexte">Commandé le {{detailCommande.createdAt | date('d:m:Y') }} à
                     {{detailCommande.createdAt |
                     date('H:i:s') }} </p>
