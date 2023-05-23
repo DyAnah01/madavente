@@ -87,8 +87,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                     new Regex([
-                        "pattern" => "/^(?=.?[A-Z])(?=.?[0-9])(?=.?[#?!@$%^&-]).{8,}$/"
-
+                        "pattern" => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$/"                       
                     ])
                 ],
             ])

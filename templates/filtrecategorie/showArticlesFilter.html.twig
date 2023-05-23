@@ -9,17 +9,10 @@
     {{ notification }}
 </div>
 {% endfor %}
-{% if app.user %}
-<p class="bonjour">
-    Bonjour {{ app.user.prenom }} ! </p>
-{% else %}
-{% endif %}
-
 <h1 class="text-center fs-3 my-5 an">Bienvenue chez MadaVente, faites-vous plaisir! </h1>
-
 <div class="row p-3 justify-content-center" id="info">
-    {% if pagination %}
-    {% for item in pagination %}
+    {% if categorie %}
+    {% for item in categorie %}
     {% set id = 'item.id' %}
     {% set url = path('detail_article', {'id': item.id}) %}
     <div class="card p-3 m-3 stylecart" onclick="ouvrirLien('{{ url }}')" style="width: 18rem">
@@ -27,16 +20,9 @@
         <div class="card-body w-100">
             <h5 class="card-title">{{ item.titre }}</h5>
             {% if item.stock < 1 %} <p class="text-danger text-end"> * Rupture de stock</p>{% endif %}
-
-                {# <p class="card-text" style="height:2rem">{{ item.shortDescription }}</p>
-                <p class="card-text pt-2">{{ item.prix }}€</p> #}
         </div>
     </div>
     {% endfor %}
-    <div class="pagination mt-3 d-flex pagination-lg justify-content-center">
-        {{ knp_pagination_render(pagination) }}
-    </div>
-
     {% else %}
     <p>Rien</p>
     {% endif %}

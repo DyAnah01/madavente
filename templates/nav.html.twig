@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg sticky-top navig">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ path('home') }}">
             <img src="{{ asset('images/logo.png') }}" alt="Logo MadaVente" width="30" height="30"
                 class="d-inline-block align-text-top">
         </a>
@@ -10,14 +10,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             {% if is_granted('ROLE_ADMIN') %}
-            {# si admin is connected, he will see : #}
+            {# if admin is connected, he will see : #}
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions" data-bs-target=""
-                        aria-controls="offcanvasWithBothOptions">Trier les articles</a>
+                    <a class="nav-link" href="{{ path('app_filtrecategorie') }}">Filtre</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -46,10 +45,11 @@
                     <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions" data-bs-target=""
-                        aria-controls="offcanvasWithBothOptions">Trier les articles</a>
+                    <a class="nav-link" href="{{ path('app_filtrecategorie') }}">Filtre</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -74,15 +74,17 @@
                     <a class="nav-link active" aria-current="page" href="{{ path('home') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="offcanvas" href="#offcanvasWithBothOptions" data-bs-target=""
-                        aria-controls="offcanvasWithBothOptions">Trier les articles</a>
+                    <a class="nav-link" href="{{ path('app_filtrecategorie') }}">Filtre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_contact') }}">Contact</a>
                 </li>
             </ul>
             {% endif %}
 
             {% if app.user %}
             {# logout if user or admin conected #}
-            <a class="text-decoration-none text-dark pe-2" href=" {{ path('app_logout') }} " title="Se déconnecter">
+            <a class="text-decoration-none text-dark pe-2" href=" {{ path('app_logout') }} " title="Se déconnecter"> Se déconnecter
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                     class="bi bi-box-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
@@ -93,7 +95,7 @@
             </a>
             {% else %}
             {# login if visitor #}
-            <a class="text-decoration-none text-dark pe-2" href="{{ path('app_login') }}" title="Se connecter">
+            <a class="text-decoration-none text-dark pe-2" href="{{ path('app_login') }}" title="Se connecter"> Se connecter
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                     class="bi bi-person-fill" viewBox="0 0 16 16">
                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />

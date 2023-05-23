@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }}|Gestion catégorie{% endblock %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center flex-row py-5">
+
+  {% if categorie %}
+  {% for item in categorie %}
+
+  <a href="{{ path('app_filtrecategorie_article', { 'id' : item.id } ) }}" class="btnFilter mx-3">{{ item.nom }}</a>
+  {% endfor %}
+
+  {% endif %}
+</div>
+
+
+{% endblock %}
