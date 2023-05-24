@@ -245,53 +245,11 @@ hr {
     text-align: end;
 }
 
-  
-/* .btnFilter{
 
-} */
-
-.btnFilter:link,
-.btnFilter:visited {
- text-transform: uppercase;
- text-decoration: none;
- color: rgb(27, 27, 27);
- padding: 10px 30px;
- border: 1px solid;
- border-radius: 1000px;
- display: inline-block;
- transition: all .2s;
- position: relative;
-}
-
-.btnFilter:hover {
- transform: translateY(-5px);
- box-shadow: 0 10px 20px rgba(27, 27, 27, .5);
-}
-
-.btnFilter:active {
- transform: translateY(-3px);
-}
-
-.btnFilter::after {
- content: "";
- display: inline-block;
- height: 100%;
- width: 100%;
- border-radius: 100px;
- top: 0;
- left: 0;
- position: absolute;
- z-index: -1;
- transition: all .3s;
-}
-
-.btnFilter:hover::after {
- background-color: white;
- transform: scaleX(1.4) scaleY(1.5);
- opacity: 0;
-}
 @media only screen and (min-width: 0) and (max-width: 1280px)
 {
+
+
     #mpc{
         padding-top: 0;
         display: flex;
@@ -306,6 +264,10 @@ hr {
     }
     .tlogo{  
         padding-top: 65px;
+    }
+    .log{
+        width: 200px;
+        height: 200px;
     }
     #logoM{
         width: 50px;

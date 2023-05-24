@@ -4,12 +4,13 @@
 
 {% block body %}
 
-<div class="d-flex justify-content-center flex-row py-5">
+<div class="list-group py-5 btnFilter">
 
   {% if categorie %}
   {% for item in categorie %}
 
-  <a href="{{ path('app_filtrecategorie_article', { 'id' : item.id } ) }}" class="btnFilter mx-3">{{ item.nom }}</a>
+  <a href="{{ path('app_filtrecategorie_article', { 'id' : item.id } ) }}"
+    class="list-group-item list-group-item-action">{{ item.nom }}</a>
   {% endfor %}
 
   {% endif %}
