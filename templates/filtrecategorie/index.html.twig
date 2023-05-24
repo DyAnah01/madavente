@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }}|Gestion catégorie{% endblock %}
+
+{% block body %}
+
+<div class="list-group py-5 btnFilter">
+
+  {% if categorie %}
+  {% for item in categorie %}
+
+  <a href="{{ path('app_filtrecategorie_article', { 'id' : item.id } ) }}"
+    class="list-group-item list-group-item-action">{{ item.nom }}</a>
+  {% endfor %}
+
+  {% endif %}
+</div>
+
+
+{% endblock %}

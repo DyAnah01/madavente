@@ -81,23 +81,36 @@ class ArticlesRepository extends ServiceEntityRepository
        ;
    }
 
+//       /**
+//     * @return Articles[] Returns an array of Articles objects
+//     */
+//    public function findBySearch($text): array
+//    {
+//        return $this->createQueryBuilder('a')
+//            ->andWhere('a.titre LIKE :val')
+//            ->setParameter('val', "%$text%")
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
 
-   public function getArticlesWithIdCat($value){
-    return $this->createQueryBuilder('a')
-    ->Select('c.id as idCat','c.nom','a.id as idArt','a.titre','a.description','a.photo','a.prix','a.dateCreation','a.stock','a.shortDescription')
-    ->innerJoin('App\Entity\Categorie','c', Join::WITH, 'c.id = a.idCategorie')
-    ->andWhere('a.id = :val')
-    ->setParameter('val', $value)
-    ->getQuery()
-    ->getResult();        
-}
-public function getAllA(){
-    return $this->createQueryBuilder('a')
-    ->Select('c.id as idCat','c.nom','a.id as idArt','a.titre','a.description','a.photo','a.prix','a.dateCreation','a.stock','a.shortDescription')
-    ->innerJoin('App\Entity\Categorie','c', Join::WITH, 'c.id = a.idCategorie')
-    ->getQuery()
-    ->getResult();        
-}
+
+//    public function getArticlesWithIdCat($value){
+//     return $this->createQueryBuilder('a')
+//     ->Select('c.id as idCat','c.nom','a.id as idArt','a.titre','a.description','a.photo','a.prix','a.dateCreation','a.stock','a.shortDescription')
+//     ->innerJoin('App\Entity\Categorie','c', Join::WITH, 'c.id = a.idCategorie')
+//     ->andWhere('a.id = :val')
+//     ->setParameter('val', $value)
+//     ->getQuery()
+//     ->getResult();        
+// }
+// public function getAllA(){
+//     return $this->createQueryBuilder('a')
+//     ->Select('c.id as idCat','c.nom','a.id as idArt','a.titre','a.description','a.photo','a.prix','a.dateCreation','a.stock','a.shortDescription')
+//     ->innerJoin('App\Entity\Categorie','c', Join::WITH, 'c.id = a.idCategorie')
+//     ->getQuery()
+//     ->getResult();        
+// }
 
 //    /**
 //     * @return Articles[] Returns an array of Articles objects

@@ -40,7 +40,8 @@
                 <td> {{item.prix}} €</td>
                 <td> {{item.idCategorie.nom}} </td>
                 <td> {{item.dateCreation | date('d:m:Y') }} </td>
-                <td> {{item.stock}} </td>
+                <td>
+                    {% if item.stock < 1 %} rupture de stock {% else %} {{item.stock}} {% endif %} </td>
                 <td class="w-25">
                     {# Detail #}
                     <a href="{{ path('detail_article', { 'id' : item.id } ) }}" class="text-decoration-none"
