@@ -87,11 +87,23 @@ footer{
     font-size: 48px;
     margin-top: 15px;
 }
+.fontTitle{
+    font-family: 'Noto Serif JP', serif;
+}
 .an{
+    font-family: 'Noto Serif JP', serif;
+    font-weight: revert;
     display: flex;
     justify-content: center;
     align-items: center; 
+    letter-spacing: 2px;
+
 }
+
+.bodyAn{
+    margin: 50px 0;
+}
+
 .navig{
     background-color: #9c8574;
 }
@@ -147,12 +159,16 @@ hr {
     margin: auto;
 }
 .imgDetail{
-    width: 500px;
-    height: 500px;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 .iconres{
     width: 40px;
     height: 40px;
+}
+a.nav-link{
+    color: #000 !important;
 }
 .links{
     padding: 0px 100px;
@@ -170,9 +186,9 @@ hr {
     -moz-transition: all 0.2s ease-out;
     transition: all 0.2s ease-out;
 }
-.bodyAn{
-    margin: 50px 0;
-}
+
+
+/*
 .an {
     position: relative;
     font-family: sans-serif;
@@ -184,10 +200,11 @@ hr {
     background-repeat: no-repeat;
     background-size: 80%;
     animation: animate 3s linear infinite;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: rgba(255, 255, 255, 0);
-  }
-  
+}
+
   @keyframes animate {
     0% {
       background-position: -500%;
@@ -195,7 +212,7 @@ hr {
     100% {
       background-position: 500%;
     }
-  }
+  } */
   #petitimg{
     width: 100px;
     height: 100px;
@@ -245,11 +262,18 @@ hr {
     text-align: end;
 }
 
-
+.box{
+    padding-left: 32px;
+}
 @media only screen and (min-width: 0) and (max-width: 1280px)
 {
+    .bonjour{
+        font-size: 30px;
+    }
 
-
+    .box{
+        padding-left: 0;
+    }
     #mpc{
         padding-top: 0;
         display: flex;
@@ -324,9 +348,15 @@ hr {
       /* #historiqueUser{
         width: 40%;
       } */
+      .links{
+        padding: 0px;
+    } 
+
     
 
 }
+
+
 
 
 

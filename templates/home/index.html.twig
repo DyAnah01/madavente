@@ -5,13 +5,13 @@
 {% block body %}
 {# {{ dump(articles) }} #}
 {% for notification in app.flashes('success') %}
-<div class="alert alert-success col-md-6 mx-auto text-center disparition">
+<div class="alert alert-success col-md-6 mx-auto text-center disparition mt-4">
     {{ notification }}
 </div>
 {% endfor %}
 {% if app.user %}
 <p class="bonjour">
-    Bonjour {{ app.user.prenom }} ! </p>
+    Bonjour {{ app.user.prenom }} 😉 </p>
 {% else %}
 {% endif %}
 
