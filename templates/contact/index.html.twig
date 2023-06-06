@@ -3,7 +3,7 @@
 {% block title %} {{ parent() }}|Contact {% endblock %}
 
 {% block body %}
-<h1 class="d-flex justify-content-center my-4">Nous Contacter</h1>
+<h1 class="d-flex justify-content-center my-4 fontTitle">Nous Contacter</h1>
 {% for notification in app.flashes('success') %}
     <div class="alert alert-success col-md-6 mx-auto text-center disparition mt-4">
         {{ notification }}
