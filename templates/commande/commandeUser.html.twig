@@ -19,7 +19,7 @@
     </svg>
     Retour
 </a>
-<h1 class="py-4 text-center">Commande n° {{ commande.id }}</h1>
+<h1 class="py-4 text-center fontTitle">Commande n° {{ commande.id }}</h1>
 <p class="pSp petitTexte text-center">du {{commande.createdAt | date('d:m:Y') }} à {{commande.createdAt |
     date('H:i:s') }} </p>
 <p class="pSp text-center"><strong>Prix Total: </strong>{{ commande.total}}€</p>
@@ -36,10 +36,6 @@
                 <p class="pSp"><strong>Quantité: </strong>{{ commandeDetail.quantity}} </p>
             </div>
         </div>
-        {# <a href="{{ path('delete_order', {'id' : item1.id}) }}" id="annule"
-            class="text-decoration-none align-self-end"
-            onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande ?')">Annuler la commande</a> #}
-
     </div>
     <div class="traits"></div> <!-- Trait de séparation-->
 

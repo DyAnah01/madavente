@@ -66,7 +66,7 @@ class CommandeController extends AbstractController
         $com = $repoCommande->findAll();
 
         return $this->render('commande/listOrderAdmin.html.twig', [
-            'detail' => $com,
+            'commandes' => $com,
         ]);
     }
 
@@ -77,7 +77,7 @@ class CommandeController extends AbstractController
     {
         $com = $repoCommande->findOneBy(['id' => $id]);
         return $this->render('commande/commandeAdmin.html.twig', [
-            'detailCommande' => $com,
+            'commande' => $com,
         ]);
     }
 
@@ -107,7 +107,7 @@ class CommandeController extends AbstractController
     // Affiche la liste de commande pour User
     #[IsGranted('ROLE_USER')]
     #[Route('/profile/historique/commandes', name: 'list_commande_user')]
-    public function listCommandeUser(CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    public function listCommandeUser(): Response
     {
         $com = $this->getUser()->getCommandes();
         return $this->render('commande/listOrderUser.html.twig', [
@@ -115,10 +115,10 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    // Affiche la liste de commande détaillé User
+    // Affiche la liste de commande détaillé User 👀
     #[IsGranted('ROLE_USER')]
     #[Route('/profile/details/commandes/{id}', name: 'detail_historique_commande_user')]
-    public function detailCommandeUser($id, CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
+    public function detailCommandeUser($id, CommandeRepository $repoCommande): Response
     {
         $com = $repoCommande->find($id);
         return $this->render('commande/commandeUser.html.twig', [

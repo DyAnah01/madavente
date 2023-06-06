@@ -99,7 +99,18 @@ footer{
     letter-spacing: 2px;
 
 }
-
+a[rel="prev"],a[rel="next"]{
+    border-color: #9c8574;
+    background-color: #9c8574;
+}
+/* a[rel="next"]{
+    border-color: #9c8574;
+    background-color: #9c8574;
+} */
+.brownColor{
+    border-color: #9c8574;
+    background-color: #9c8574;
+}
 .bodyAn{
     margin: 50px 0;
 }
