@@ -120,9 +120,9 @@ class CommandeController extends AbstractController
     #[Route('/profile/details/commandes/{id}', name: 'detail_historique_commande_user')]
     public function detailCommandeUser($id, CommandeDetailsRepository $repoComD, UserRepository $repoUser, CommandeRepository $repoCommande, EntityManagerInterface $em): Response
     {
-        $com = $this->getUser()->getCommandes();
+        $com = $repoCommande->find($id);
         return $this->render('commande/commandeUser.html.twig', [
-            'commandes' => $com,
+            'commande' => $com,
         ]);
     }
 
