@@ -61,30 +61,10 @@ class ContactType extends AbstractType
         ->add('submit', SubmitType::class, [
             'label' => 'Envoyer',
             "attr" => [
-                "class" => "btn btn-primary",
+                "class" => "btn btn-outline-dark",
                 "id" => "valider"
             ]
         ])
-        // ->add('nom', TextareaType::class, [
-        //     "label"=>"Nom de la catégorie",
-        //     "required"=>false,//mettre valeur par défaut qui est ne nom de propriété à false pour le modifier
-        //     "attr"=>[
-        //         "placeholder"=> "Saisir le nom de la catégorie",
-        //         "class"=>"border border-primary"
-        //     ],
-        //     "constraints"=>[
-        //         new NotBlank([
-        //             "message" => "Veuillez saisir un nom de catégorie"
-
-        //         ]),
-        //         new Length([
-        //             "min" => 5,
-        //             "max"=>10,
-        //             "minMessage" => "5 caractères min 🥲",
-        //             "maxMessage" => "10 caractères max 😅"
-        //         ])
-        //     ]
-        // ])
         ;
     }
 

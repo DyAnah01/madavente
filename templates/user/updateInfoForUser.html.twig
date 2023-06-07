@@ -3,16 +3,17 @@
 {% block title %} {{ parent() }}|UpdateInfoUser{% endblock title %}
 
 {% block body %}
-<h2 class="text-center pt-3">Modifier vos informations personnelles</h2>
+<h1 class="text-center fontTitle my-4">Modifier vos informations personnelles</h1>
 {# {{ dump(formUser) }} #}
 <div class="row justify-content-center">
-
-
-    {{ form_start(formUser, {'attr': {'novalidate': 'novalidate'}}) }}
-    {{ form_widget(formUser) }}
-    <div class="col-md-12 mx-auto">
-        <button class="text-white btn btn-success bg-opacity-75 mil">Valider la modification</button>
-    </div>
-    {{ form_end(formUser) }}
+        <div class="col-md-6 row justify-content-center">
+            {{ form_start(formUser, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(formUser) }}
+            <div class="col-md-12 mx-auto d-flex flex-end">
+                <button class="btn btn-outline-dark">Valider la modification</button>
+            </div>
+            {{ form_end(formUser) }}
+        </div>
 </div>
+
 {% endblock body %}

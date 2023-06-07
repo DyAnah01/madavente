@@ -10,49 +10,36 @@
 </div>
 {% endfor %}
 <a href="{{ path('list_commande_user') }}" title="Retour à la liste" class="fs-3 text-decoration-none text-dark">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dark" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-    <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-  </svg>
-  Retour
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="dark" class="bi bi-chevron-double-left"
+        viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+            d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+        <path fill-rule="evenodd"
+            d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+    </svg>
+    Retour
 </a>
-<h1 class="py-4 text-center">Vos commandes</h1>
-{% if commandes %}
-{% for item1 in commandes %}
-{% if item1.statut == "Payé" %}
-{% for item2 in item1.commandeDetails %}
+<h1 class="py-4 text-center fontTitle">Commande n° {{ commande.id }}</h1>
+<p class="pSp petitTexte text-center">du {{commande.createdAt | date('d:m:Y') }} à {{commande.createdAt |
+    date('H:i:s') }} </p>
+<p class="pSp text-center"><strong>Prix Total: </strong>{{ commande.total}}€</p>
+
+{% for commandeDetail in commande.commandeDetails %}
 <div id="historiqueUser">
-    <p class="pSp petitTexte "><strong>Commande N°: </strong>{{ item1.id}}</p>
     <div class="d-flex justify-content-between">
         <div class="d-flex">
-            <img src="{{ asset('uploads/articles/'~item2.articles.photo ) }}" id="petitimg" alt="image article">
+            <img src="{{ asset('uploads/articles/'~ commandeDetail.articles.photo ) }}" id="petitimg"
+                alt="image article">
             <div div="containerInfoHisto">
-                <p id="tex">{{ item2.articles.titre }}</p>
-                <p class="pSp"><strong>Prix Unitaire: </strong>{{ item2.articles.prix}}€</p>
-                <p class="pSp"><strong>Quantité: </strong>{{ item2.quantity}} </p>
-                <p class="pSp petitTexte">Commandé le {{item1.createdAt | date('d:m:Y') }} à {{item1.createdAt |
-                    date('H:i:s') }} </p>
+                <p id="tex">{{ commandeDetail.articles.titre }}</p>
+                <p class="pSp"><strong>Prix Unitaire: </strong>{{ commandeDetail.articles.prix}}€</p>
+                <p class="pSp"><strong>Quantité: </strong>{{ commandeDetail.quantity}} </p>
             </div>
         </div>
-        {# <a href="{{ path('delete_order', {'id' : item1.id}) }}" id="annule" class="text-decoration-none align-self-end"
-            onclick="return confirm('Êtes-vous sûr de vouloir annuler la commande ?')">Annuler la commande</a> #}
-
     </div>
     <div class="traits"></div> <!-- Trait de séparation-->
-    <p class="pSp"><strong>Prix Total: </strong>{{ item1.total}}€</p>
 
 </div><!-- Fin container historiqueUser -->
 {% endfor %}
-{% else %}
-{% endif %}
-{% endfor %}
-{% else %}
-<h1 class="text-center fs-3 my-5">Aucune commande pour l'instant</h1>
-{% endif %}
-
-
-
-
-
 
 {% endblock body %}
